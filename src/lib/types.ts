@@ -1,4 +1,4 @@
-interface Verse {
+export interface Verse {
 	book_id: string; // e.g. 'JHN';
 	book_name: string; // e.g. 'John';
 	chapter: number;

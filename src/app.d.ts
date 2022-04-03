@@ -6,5 +6,7 @@ declare namespace App {
 	// interface Locals {}
 	// interface Platform {}
 	// interface Session {}
-	// interface Stuff {}
+	export interface Stuff {
+		meta: any;
+	}
 }
