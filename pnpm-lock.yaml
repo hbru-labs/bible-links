@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@playwright/test': ^1.20.0
   '@sveltejs/adapter-node': ^1.0.0-next.73
+  '@sveltejs/adapter-vercel': next
   '@sveltejs/kit': next
   '@typescript-eslint/eslint-plugin': ^5.10.1
   '@typescript-eslint/parser': ^5.10.1
@@ -20,6 +21,7 @@ specifiers:
 devDependencies:
   '@playwright/test': 1.20.2
   '@sveltejs/adapter-node': 1.0.0-next.73
+  '@sveltejs/adapter-vercel': 1.0.0-next.47
   '@sveltejs/kit': 1.0.0-next.304_svelte@3.46.6
   '@typescript-eslint/eslint-plugin': 5.17.0_6da5f837f6da21a8347f2aaca31a901b
   '@typescript-eslint/parser': 5.17.0_eslint@7.32.0+typescript@4.6.3
@@ -683,6 +685,12 @@ packages:
     resolution: {integrity: sha512-eidd7u1dPHIaBKMjRePrxazUt+Mm/JpnaiKLzZJBdamhBiiYIb+epkPLLqfG5Oo346/0HLKwFRAM/FXn3u3BHQ==}
     dependencies:
       tiny-glob: 0.2.9
+    dev: true
+
+  /@sveltejs/adapter-vercel/1.0.0-next.47:
+    resolution: {integrity: sha512-VV3vP8KqL9XOc7xfQLVhXTM5jrTme+r1qJy98u5/dhAhkdjqrGDwAKo/s7MoB3rTYxLb2b8I4QxAaoz2Y2aIBg==}
+    dependencies:
+      esbuild: 0.14.30
     dev: true
 
   /@sveltejs/kit/1.0.0-next.304_svelte@3.46.6:
