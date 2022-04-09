@@ -21,13 +21,17 @@
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={meta.text} />
-	<meta name="og:site_name" content="Bible Links" />
-	<meta name="og:type" content="image" />
 
 	<meta name="og:title" content={title} />
 	<meta name="og:description" content={meta.text} />
+	<meta name="og:site_name" content="Bible Links" />
+	<meta name="og:type" content="website" />
 	<meta name="og:url" content="https://bible-api.com" />
+
 	<meta property="og:image" content="good_news_bible.png" />
+	<meta property="og:image:alt" content="${title}" />
+	<meta property="og:image:width" content="720" />
+	<meta property="og:image:height" content="540" />
 
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={meta.text} />
