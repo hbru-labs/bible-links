@@ -15,7 +15,10 @@
 	import type { JSON_DATA } from '$lib/types';
 
 	export let meta: JSON_DATA;
+
 	const title = `${meta.reference}: ${meta.translation_name}`;
+	const imgSrc =
+		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649502780/bible-links/good_news_bible.png';
 </script>
 
 <svelte:head>
@@ -28,14 +31,14 @@
 	<meta name="og:type" content="website" />
 	<meta name="og:url" content="https://bible-api.com" />
 
-	<meta property="og:image" content="good_news_bible.png" />
+	<meta property="og:image" content={imgSrc} />
 	<meta property="og:image:alt" content="${title}" />
 	<meta property="og:image:width" content="720" />
 	<meta property="og:image:height" content="540" />
 
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={meta.text} />
-	<meta property="twitter:image" content="good_news_bible.png" />
+	<meta property="twitter:image" content={imgSrc} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@ChukwumaNwaugha" />
 </svelte:head>
