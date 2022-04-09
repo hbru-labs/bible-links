@@ -10,7 +10,7 @@
 	</div>
 
 	<div>
-		<img src="/images/good_news_bible.png" alt="Goodnews bible" />
+		<img src="good_news_bible.png" alt="Goodnews Bible" />
 	</div>
 </div>
 

@@ -27,11 +27,11 @@
 	<meta name="og:title" content={title} />
 	<meta name="og:description" content={meta.text} />
 	<meta name="og:url" content="https://bible-api.com" />
-	<meta property="og:image" content="/images/good_news_bible.png" />
+	<meta property="og:image" content="good_news_bible.png" />
 
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={meta.text} />
-	<meta property="twitter:image" content="/images/good_news_bible.png" />
+	<meta property="twitter:image" content="good_news_bible.png" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@ChukwumaNwaugha" />
 </svelte:head>
