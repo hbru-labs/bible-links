@@ -4,16 +4,19 @@
 
 <div class="block-container">
 	<div class="image-wrapper">
-		<img width="240" src="logo.png" alt="Goodnews Bible" />
+		<img width="240" src="logo.png" alt="Bible Links logo" />
 	</div>
 
 	<div class="text-wrapper">
 		<p class="text text-20 text-bold reference">
-			{$page.stuff.meta.reference}
+			{$page.stuff.meta.reference}:
+			<span class="translation_name">
+				{$page.stuff.meta.translation_name}
+			</span>
 		</p>
-		<span class="text text-20">
+		<div class="text text-20 bible-text">
 			{$page.stuff.meta.text}
-		</span>
+		</div>
 
 		<p class="text footer">
 			Powered by <a href="https://bible-api.com">https://bible-api.com</a>
@@ -43,9 +46,20 @@
 		margin-top: 40px;
 	}
 
+	.bible-text:first-letter {
+		text-transform: uppercase;
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+
 	.reference {
 		text-decoration: underline;
 		margin-bottom: 8px;
+	}
+
+	.reference .translation_name {
+		font-weight: normal;
+		text-transform: lowercase;
 	}
 
 	.footer {
