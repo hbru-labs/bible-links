@@ -2,9 +2,28 @@
 	import { page } from '$app/stores';
 </script>
 
-<div style="display: block; height: 100%; width: 100%">
-	{JSON.stringify($page.stuff.meta.text, null, 2)}
-	<!-- <p>
-		<img src="/static/good_news_bible.png" alt="Goodnews bible" />
-	</p> -->
+<div class="block-container">
+	<div class="text-wrapper">
+		<span class="text text-20">
+			{$page.stuff.meta.text}
+		</span>
+	</div>
+
+	<div>
+		<img src="/images/good_news_bible.png" alt="Goodnews bible" />
+	</div>
 </div>
+
+<style>
+	.block-container > div {
+		display: block;
+		margin: 0 auto;
+		max-width: 420px;
+		width: auto;
+		padding: 20px;
+	}
+	.text-wrapper {
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+</style>
