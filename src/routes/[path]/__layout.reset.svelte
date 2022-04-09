@@ -18,7 +18,7 @@
 
 	const title = `${meta.reference}: ${meta.translation_name}`;
 	const imgSrc =
-		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649502780/bible-links/good_news_bible.png';
+		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649503686/bible-links/main_logo.png';
 </script>
 
 <svelte:head>
