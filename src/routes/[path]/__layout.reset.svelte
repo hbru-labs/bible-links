@@ -13,6 +13,7 @@
 
 <script lang="ts">
 	import type { JSON_DATA } from '$lib/types';
+	import { page } from '$app/stores';
 
 	export let meta: JSON_DATA;
 
@@ -29,7 +30,7 @@
 	<meta name="og:description" content={meta.text} />
 	<meta name="og:site_name" content="Bible Links" />
 	<meta name="og:type" content="website" />
-	<meta name="og:url" content="https://bible-api.com" />
+	<meta name="og:url" content={$page.url.href} />
 
 	<meta property="og:image" content={imgSrc} />
 	<meta property="og:image:alt" content="${title}" />
