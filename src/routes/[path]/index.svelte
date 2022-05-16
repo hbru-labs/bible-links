@@ -25,6 +25,9 @@
 </div>
 
 <style>
+	.block-container {
+		padding: 0 10px;
+	}
 	.block-container > div {
 		display: block;
 		margin: 0 auto;

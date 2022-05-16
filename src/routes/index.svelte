@@ -1,3 +1,4 @@
+<!-- Make this a search page -->
 <div class="grid-container">
 	<p class="text text-20">Enter a valid Bible link, or go to the following link for usage guide</p>
 	<a href="https://bible-api.com">Powered by https://bible-api.com</a>
