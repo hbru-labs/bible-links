@@ -11,7 +11,10 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: isProd? vercel(): adapter()
+		adapter: isProd? vercel(): adapter(),
+		prerender: {
+			enabled: false,
+		},
 	}
 };
 
