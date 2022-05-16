@@ -1,15 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { client } from '$lib/services/redis';
 
-export const get: RequestHandler = async function () {
+export const get: RequestHandler = async function ({ url }) {
 	try {
-		let redisStatus = 'not-ok';
-		const key = 'cache-key';
-		redisStatus = await client.get(key).then(() => 'ok');
-
 		return {
 			body: {
-				redis: redisStatus
+				redis: (await fetch(`${url.origin}/_ah/redis`)).statusText
 			}
 		};
 	} catch (error) {

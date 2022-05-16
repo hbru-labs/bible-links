@@ -2,8 +2,9 @@ import type { Handle } from '@sveltejs/kit';
 import { client } from '$lib/services/redis';
 import { prerendering } from '$app/env';
 
+// would be used for SSR
 const redis: Handle = async ({ event, resolve }) => {
-	if (!prerendering) {
+	if (/(\/_ah\/redis\/?)$/.test(event.url.pathname) && !prerendering) {
 		const key = 'cached';
 		let cached = await client.get(key);
 
@@ -13,9 +14,7 @@ const redis: Handle = async ({ event, resolve }) => {
 			cached = 'RENDERED';
 		}
 		event.locals['cached-data'] = cached;
-	}
 
-	if (/(\/_ah\/redis\/?)$/.test(event.url.pathname)) {
 		return Response.redirect(event.url.origin + '/', 303);
 	}
 
