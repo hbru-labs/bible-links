@@ -2,7 +2,7 @@ import type { Handle } from '@sveltejs/kit';
 import { client } from '$lib/services/redis';
 import { prerendering } from '$app/env';
 
-const redisHook: Handle = async ({ event, resolve }) => {
+const redis: Handle = async ({ event, resolve }) => {
 	if (!prerendering) {
 		const key = 'cached';
 		let cached = await client.get(key);
@@ -15,8 +15,12 @@ const redisHook: Handle = async ({ event, resolve }) => {
 		event.locals['cached-data'] = cached;
 	}
 
-	const response = await resolve(event);
-	return { ...response };
+	if (/(\/_ah\/redis\/?)$/.test(event.url.pathname)) {
+		return Response.redirect(event.url.origin + '/', 303);
+	}
+
+	const response = await resolve(event, { ssr: false });
+	return response;
 };
 
-export default redisHook;
+export default redis;
