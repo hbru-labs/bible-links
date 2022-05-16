@@ -1,10 +1,11 @@
 import type { Handle } from '@sveltejs/kit';
-import { client } from '$lib/services/redis';
 import { prerendering } from '$app/env';
 
 // would be used for SSR
 const redis: Handle = async ({ event, resolve }) => {
 	if (/(\/_ah\/redis\/?)$/.test(event.url.pathname) && !prerendering) {
+		const { client } = await import('$lib/services/redis');
+
 		const key = 'cached';
 		let cached = await client.get(key);
 
