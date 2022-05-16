@@ -2,7 +2,7 @@
 	import type { Load } from '@sveltejs/kit';
 
 	export const load: Load = async ({ fetch, url, params }) => {
-		const meta = await fetch(`/data.json`, {
+		const meta = await fetch(`/api/data.json`, {
 			method: 'POST',
 			body: JSON.stringify({ pathname: params.path, query: url.search })
 		}).then((r) => r.json());
