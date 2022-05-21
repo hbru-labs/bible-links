@@ -14,10 +14,7 @@ export const post: RequestHandler = async ({ request }) => {
 		const cached = await client.get(key);
 		if (cached) {
 			return {
-				body: {
-					...JSON.parse(cached),
-					cached: true
-				}
+				body: { ...JSON.parse(cached), cached: true }
 			};
 		}
 
@@ -30,7 +27,6 @@ export const post: RequestHandler = async ({ request }) => {
 	const result = await fetch(url).then((r) => r.json());
 	// cache result
 	await redisClient?.set(key, JSON.stringify(result));
-
 	return {
 		body: result
 	};
