@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import adapter from '@sveltejs/adapter-node';
 import vercel from '@sveltejs/adapter-vercel';
 import preprocess from 'svelte-preprocess';
@@ -11,7 +12,13 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: isProd? vercel(): adapter()
+		adapter: isProd? vercel(): adapter(),
+		prerender: {
+			enabled: false,
+		},
+		vite: {
+			define: { 'process.env': process.env },
+		}
 	}
 };
 
