@@ -4,8 +4,6 @@ import vercel from '@sveltejs/adapter-vercel';
 import preprocess from 'svelte-preprocess';
 
 const isProd = process.env.NODE_ENV === 'production';
-console.log(`isProd: ${isProd}`);
-console.log(`REDIS_URL: ${process.env.REDIS_URL}`);
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

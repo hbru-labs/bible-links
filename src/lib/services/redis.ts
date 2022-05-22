@@ -1,7 +1,6 @@
-import Redis from 'ioredis';
+import { Redis } from '@upstash/redis';
 
-export const client = new Redis(process.env.REDIS_URL);
-
-client.on('error', function (err) {
-	throw err;
+export const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN
 });
