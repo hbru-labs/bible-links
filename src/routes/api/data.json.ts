@@ -1,5 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import type { Redis } from 'ioredis';
+import type { Redis } from '@upstash/redis';
+import type { JSON_DATA } from '$lib/types';
 
 const BASE_URL = 'https://bible-api.com';
 
@@ -9,16 +10,16 @@ export const post: RequestHandler = async ({ request }) => {
 	let redisClient: Redis | null = null;
 
 	try {
-		const { client } = await import('$lib/services/redis');
+		const { redis } = await import('$lib/services/redis');
 		// check whether request was cached
-		const cached = await client.get(key);
+		const cached = await redis.get<JSON_DATA>(key);
 		if (cached) {
 			return {
-				body: { ...JSON.parse(cached), cached: true }
+				body: { ...cached, cached: true }
 			};
 		}
 
-		redisClient = client;
+		redisClient = redis;
 	} catch (error) {
 		console.log('E: reading from redis', error);
 	}
