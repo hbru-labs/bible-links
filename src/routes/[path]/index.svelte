@@ -1,5 +1,21 @@
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
+	import { browser } from '$app/env';
+	export const load: Load = async ({ url }) => {
+		const translation = url.searchParams.get('translation');
+		return {
+			props: {
+				currentTranslation: browser ? translation : ''
+			}
+		};
+	};
+</script>
+
 <script lang="ts">
 	import { page } from '$app/stores';
+	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
+
+	export let currentTranslation: string;
 </script>
 
 <div class="block-container">
@@ -17,6 +33,7 @@
 		<div class="text text-20 bible-text">
 			{$page.stuff.meta.text}
 		</div>
+		<OtherTranslations {currentTranslation} />
 	</div>
 
 	<div class="text footer">
