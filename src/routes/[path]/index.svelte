@@ -17,10 +17,10 @@
 		<div class="text text-20 bible-text">
 			{$page.stuff.meta.text}
 		</div>
+	</div>
 
-		<p class="text footer">
-			Powered by <a href="https://bible-api.com">https://bible-api.com</a>
-		</p>
+	<div class="text footer">
+		Powered by <a href="https://bible-api.com">https://bible-api.com</a>
 	</div>
 </div>
 
@@ -69,5 +69,9 @@
 		margin-top: 20px;
 		text-align: left;
 		font-size: 10px;
+		position: fixed;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 </style>
