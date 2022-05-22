@@ -7,6 +7,10 @@
 			body: JSON.stringify({ pathname: params.path, query: url.search })
 		}).then((r) => r.json());
 
+		if (meta.error) {
+			throw new Error(meta.error);
+		}
+
 		return { props: { meta }, stuff: { meta } };
 	};
 </script>
