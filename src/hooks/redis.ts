@@ -19,7 +19,7 @@ const redis: Handle = async ({ event, resolve }) => {
 		return Response.redirect(event.url.origin + '/', 303);
 	}
 
-	const response = await resolve(event, { ssr: false });
+	const response = await resolve(event, { ssr: true });
 	return response;
 };
 
