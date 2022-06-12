@@ -34,7 +34,9 @@ export const post: RequestHandler = async ({ request }) => {
 	const url = `${BASE_URL}/${req.pathname}${req.query}`;
 	const result = await fetch(url).then((r) => r.json());
 	// cache the result
-	await redisClient?.set(key, JSON.stringify(result));
+	if (result.text) {
+		await redisClient?.set(key, JSON.stringify(result));
+	}
 
 	return {
 		headers,
