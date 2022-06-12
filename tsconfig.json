@@ -1,8 +1,9 @@
 {
 	"compilerOptions": {
 		"paths": {
-			"$lib/*": ["src/lib/*"],
+			"$lib/*":["src/lib/*"]
 		}
 	},
+	"exclude": ["./node_modules/**"],
 	"extends": "./.svelte-kit/tsconfig.json"
 }
