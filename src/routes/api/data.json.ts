@@ -3,6 +3,9 @@ import type { Redis } from '@upstash/redis';
 import type { JSON_DATA } from '$lib/types';
 
 const BASE_URL = 'https://bible-api.com';
+const headers = {
+	'cache-control': 'max-age=86400'
+};
 
 export const post: RequestHandler = async ({ request }) => {
 	const req = await request.json();
@@ -15,7 +18,11 @@ export const post: RequestHandler = async ({ request }) => {
 		const cached = await redis.get<JSON_DATA>(key);
 		if (cached) {
 			return {
-				body: { ...cached, cached: true }
+				headers,
+				body: {
+					...cached,
+					cached: true
+				}
 			};
 		}
 
@@ -26,9 +33,11 @@ export const post: RequestHandler = async ({ request }) => {
 
 	const url = `${BASE_URL}/${req.pathname}${req.query}`;
 	const result = await fetch(url).then((r) => r.json());
-	// cache result
+	// cache the result
 	await redisClient?.set(key, JSON.stringify(result));
+
 	return {
+		headers,
 		body: result
 	};
 };
