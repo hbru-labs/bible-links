@@ -1,0 +1,62 @@
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async ({ url, fetch }) => {
+		const query = url.searchParams.get('q');
+		let searchResult: ESResponse[] = [];
+
+		if (query) {
+			const response = await fetch(`/api/search?q=${query}`, {
+				method: 'POST'
+			}).then((r) => r.json());
+
+			searchResult = JSON.parse(response.data);
+		}
+
+		return {
+			props: {
+				searchResult
+			}
+		};
+	};
+</script>
+
+<script lang="ts">
+	import Search from '$lib/components/Search.svelte';
+	import ListItem from '$lib/components/ListItem.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import type { ESResponse } from '$lib/utils/types';
+	import { goto } from '$app/navigation';
+
+	export let searchResult: ESResponse[];
+
+	let searchTerm = '';
+</script>
+
+<div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-10">
+	<div class="block mb-4">
+		<div class="flex flex-col space-y-3 items-center">
+			<Search bind:searchTerm />
+			<div class="w-3/4">
+				<Button
+					on:click={() => goto('/search?q=' + encodeURIComponent(searchTerm))}
+					disabled={!searchTerm}
+				/>
+			</div>
+		</div>
+	</div>
+
+	<div class="max-w-[420px] h-[480px] w-full overflow-x-hidden overflow-y-auto">
+		{#if searchResult.length}
+			<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center">
+				{#each searchResult as { _source }}
+					<ListItem
+						text={_source.text}
+						book_verse={_source.book_verse}
+						translation={_source.translation}
+					/>
+				{/each}
+			</div>
+		{/if}
+	</div>
+</div>
