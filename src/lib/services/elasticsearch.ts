@@ -1,7 +1,7 @@
 import { Client, type ClientOptions } from '@elastic/elasticsearch';
 import { getSecret } from '../utils/secret';
 import { logMethodCalls } from '../utils/helpers';
-import type { BibleDocument } from '../utils/types';
+import type { ESResponse } from '../utils/types';
 
 export type Index = 'bible';
 let client: Client | null = null;
@@ -26,7 +26,7 @@ function getAPI(client: Client) {
 		 * Search the bible index
 		 */
 		async search(index: Index, query: string) {
-			const { hits } = await client.search<BibleDocument>({
+			const { hits } = await client.search<ESResponse>({
 				index,
 				body: {
 					size: 140,
