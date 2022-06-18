@@ -2,11 +2,11 @@
 	import type { Load } from '@sveltejs/kit';
 
 	export const load: Load = async ({ url, fetch }) => {
-		const query = url.searchParams.get('q');
+		const searchTerm = url.searchParams.get('q');
 		let searchResult: ESResponse[] = [];
 
-		if (query) {
-			const response = await fetch(`/api/search?q=${query}`, {
+		if (searchTerm) {
+			const response = await fetch(`/api/search?q=${searchTerm}`, {
 				method: 'POST'
 			}).then((r) => r.json());
 
@@ -15,6 +15,7 @@
 
 		return {
 			props: {
+				searchTerm,
 				searchResult
 			}
 		};
@@ -28,9 +29,8 @@
 	import type { ESResponse } from '$lib/utils/types';
 	import { goto } from '$app/navigation';
 
+	export let searchTerm = '';
 	export let searchResult: ESResponse[];
-
-	let searchTerm = '';
 
 	function navigateToSearch() {
 		goto('/search?q=' + encodeURIComponent(searchTerm));
