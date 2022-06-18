@@ -5,6 +5,10 @@
 	import { goto } from '$app/navigation';
 
 	let searchTerm = '';
+
+	function navigateToSearch() {
+		goto('/search?q=' + encodeURIComponent(searchTerm));
+	}
 </script>
 
 <div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-4">
@@ -12,12 +16,9 @@
 
 	<div class="block mb-4">
 		<div class="flex flex-col space-y-3 items-center">
-			<Search bind:searchTerm />
+			<Search bind:searchTerm on:keypress={navigateToSearch} />
 			<div class="w-3/4">
-				<Button
-					on:click={() => goto('/search?q=' + encodeURIComponent(searchTerm))}
-					disabled={!searchTerm}
-				/>
+				<Button on:click={navigateToSearch} disabled={!searchTerm} />
 			</div>
 		</div>
 	</div>
