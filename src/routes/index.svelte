@@ -5,12 +5,16 @@
 
 	let searchTerm = '';
 
+	let searchResult: any[] = [];
+
 	async function search() {
 		const response = await fetch(`/api/search?q=${searchTerm}`, {
 			method: 'POST'
 		}).then((r) => r.json());
 
-		console.log({ response });
+		searchResult = JSON.parse(response.data);
+
+		console.log({ searchResult });
 	}
 </script>
 
@@ -23,6 +27,16 @@
 			<div class="w-3/4">
 				<Button on:click={search} disabled={!searchTerm} />
 			</div>
+		</div>
+
+		<div class="mt-4 w-full h-20 border flex flex-wrap text-center">
+			{#if searchResult.length}
+				{#each searchResult as { _source }}
+					<div class="w-full break-words">
+						<span>{_source.text}</span>
+					</div>
+				{/each}
+			{/if}
 		</div>
 	</div>
 
