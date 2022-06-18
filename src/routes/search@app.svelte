@@ -22,7 +22,7 @@
 </script>
 
 <script lang="ts">
-	import Search from '$lib/components/Search.svelte';
+	import SearchBar from '$lib/components/SearchBar.svelte';
 	import ListItem from '$lib/components/ListItem.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import type { ESResponse } from '$lib/utils/types';
@@ -40,7 +40,7 @@
 <div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-10">
 	<div class="block mb-4">
 		<div class="flex flex-col space-y-3 items-center">
-			<Search bind:searchTerm on:keypress={navigateToSearch} />
+			<SearchBar bind:searchTerm on:keypress={navigateToSearch} />
 			<div class="w-3/4">
 				<Button on:click={navigateToSearch} disabled={!searchTerm} />
 			</div>
