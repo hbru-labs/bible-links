@@ -1,6 +1,7 @@
 import { Client, type ClientOptions } from '@elastic/elasticsearch';
 import { getSecret } from '../utils/secret';
 import { logMethodCalls } from '../utils/helpers';
+import type { BibleDocument } from '../utils/types';
 
 export type Index = 'bible';
 let client: Client | null = null;
@@ -25,19 +26,20 @@ function getAPI(client: Client) {
 		 * Search the bible index
 		 */
 		async search(index: Index, query: string) {
-			const { hits } = await client.search({
+			const { hits } = await client.search<BibleDocument>({
 				index,
 				body: {
 					query: {
-						query_string: {
+						simple_query_string: {
 							query,
-							fields: ['text', 'book*', 'translation']
+							fields: ['text', 'book*', 'translation'],
+							default_operator: 'AND'
 						}
 					}
 				}
 			});
 
-			return hits;
+			return hits.hits;
 		}
 	});
 }
