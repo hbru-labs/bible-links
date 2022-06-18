@@ -2,8 +2,10 @@
   "name": "bible-links",
   "version": "0.0.2",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
+    "tailwind:compile": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css",
+    "tailwind:compile:watch": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css --watch",
+    "dev": "pnpm tailwind:compile:watch & svelte-kit dev",
+    "build": "pnpm tailwind:compile && svelte-kit build",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
