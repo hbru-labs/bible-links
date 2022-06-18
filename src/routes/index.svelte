@@ -6,7 +6,11 @@
 	let searchTerm = '';
 
 	async function search() {
-		console.log({ searchTerm });
+		const response = await fetch(`/api/search?q=${searchTerm}`, {
+			method: 'POST'
+		}).then((r) => r.json());
+
+		console.log({ response });
 	}
 </script>
 
@@ -34,13 +38,6 @@
 		place-items: center;
 		gap: 20px;
 		padding: 10px;
-	}
-	p {
-		max-width: 420px;
-		width: auto;
-		border: 1px solid #ccc;
-		padding: 16px;
-		border-radius: 4px;
 	}
 
 	div.footer {
