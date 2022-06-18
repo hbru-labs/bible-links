@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import type { Redis } from '@upstash/redis';
-import type { JSON_DATA } from '$lib/types';
+import type { JSON_DATA } from '$lib/utils/types';
 
 const BASE_URL = 'https://bible-api.com';
 const headers = {

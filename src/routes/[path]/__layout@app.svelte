@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-	import type { JSON_DATA } from '$lib/types';
+	import type { JSON_DATA } from '$lib/utils/types';
 	import { page } from '$app/stores';
 
 	export let meta: JSON_DATA;
