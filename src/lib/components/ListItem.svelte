@@ -2,9 +2,14 @@
 	export let text: string;
 	export let book_verse: string;
 	export let translation: string;
+	export let query: string;
 
 	function truncate(text: string, length: number = 140) {
 		return text.length > length ? text.slice(0, length) + '...' : text;
+	}
+
+	function highlightQuery(text: string) {
+		return text.replace(new RegExp(query, 'gi'), `<span class="bg-yellow-400">${query}</span>`);
 	}
 </script>
 
@@ -14,7 +19,7 @@
 	<span class="absolute top-1 left-2 underline">
 		{book_verse}
 	</span>
-	<span class="mt-4 text-left">{truncate(text)}</span>
+	<span class="mt-5 text-left">{@html highlightQuery(truncate(text))}</span>
 	<a
 		class="absolute flex justify-center items-center bottom-1 right-1 w-4 h-4 cursor-pointer group"
 		href="/{book_verse}?translation={translation}"

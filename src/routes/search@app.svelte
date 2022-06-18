@@ -55,6 +55,7 @@
 						text={_source.text}
 						book_verse={_source.book_verse}
 						translation={_source.translation}
+						query={searchTerm}
 					/>
 				{/each}
 			</div>
