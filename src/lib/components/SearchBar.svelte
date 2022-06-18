@@ -1,13 +1,21 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, createEventDispatcher } from 'svelte';
 
 	export let searchTerm = '';
 	export let autofocus = true;
+
+	const dispatch = createEventDispatcher<{ keypress: void }>();
 
 	let inputEl: HTMLInputElement | undefined;
 	onMount(() => {
 		autofocus && inputEl?.focus();
 	});
+
+	function handleKeyPress(ev: KeyboardEvent) {
+		if (ev.key === 'Enter' && searchTerm) {
+			dispatch('keypress');
+		}
+	}
 </script>
 
 <search-bar>
@@ -30,6 +38,7 @@
 			type="search"
 			class="text-md block h-6 w-full border-none bg-transparent pl-0 outline-none focus:ring-0"
 			placeholder="Start typing to search..."
+			on:keypress={handleKeyPress}
 			bind:value={searchTerm}
 			bind:this={inputEl}
 		/>
