@@ -14,14 +14,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
+	import Logo from '$lib/components/Logo.svelte';
 
 	export let currentTranslation: string;
 </script>
 
 <div class="block-container">
-	<div class="image-wrapper">
-		<img width="240" src="logo.png" alt="Bible Links logo" />
-	</div>
+	<Logo />
 
 	<div class="text-wrapper">
 		<p class="text text-20 text-bold reference">
@@ -51,14 +50,6 @@
 		max-width: 420px;
 		width: auto;
 		padding: 20px;
-	}
-	.image-wrapper {
-		display: flex;
-	}
-	.image-wrapper img {
-		object-fit: cover;
-		border-radius: 8px;
-		margin: 0 auto;
 	}
 	.text-wrapper {
 		border: 1px solid #333;
