@@ -45,4 +45,13 @@
 		gap: 5px;
 		font-size: 13px;
 	}
+
+	a:link {
+		color: blue;
+		text-decoration: underline;
+	}
+
+	a:visited {
+		color: indigo;
+	}
 </style>
