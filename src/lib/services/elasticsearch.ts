@@ -29,6 +29,7 @@ function getAPI(client: Client) {
 			const { hits } = await client.search<BibleDocument>({
 				index,
 				body: {
+					size: 140,
 					query: {
 						simple_query_string: {
 							query,

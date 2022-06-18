@@ -2,6 +2,7 @@
 	import Search from '$lib/components/Search.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import ListItem from '$lib/components/ListItem.svelte';
 
 	let searchTerm = '';
 
@@ -21,23 +22,27 @@
 <div class="grid-container">
 	<Logo size="medium" />
 
-	<div class="grid-x grid-margin-x">
+	<div class="block mb-4">
 		<div class="flex flex-col space-y-3 items-center">
 			<Search bind:searchTerm />
 			<div class="w-3/4">
 				<Button on:click={search} disabled={!searchTerm} />
 			</div>
 		</div>
+	</div>
 
-		<div class="mt-4 w-full h-20 border flex flex-wrap text-center">
-			{#if searchResult.length}
+	<div class="max-w-[420px] h-[400px] w-full overflow-x-hidden overflow-y-auto">
+		{#if searchResult.length}
+			<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center">
 				{#each searchResult as { _source }}
-					<div class="w-full break-words">
-						<span>{_source.text}</span>
-					</div>
+					<ListItem
+						text={_source.text}
+						book_verse={_source.book_verse}
+						translation={_source.translation}
+					/>
 				{/each}
-			{/if}
-		</div>
+			</div>
+		{/if}
 	</div>
 
 	<div class="text footer">
@@ -50,7 +55,6 @@
 		margin: 0 auto;
 		text-align: center;
 		place-items: center;
-		gap: 20px;
 		padding: 10px;
 	}
 
@@ -59,7 +63,8 @@
 		margin: 0 auto;
 		max-width: 420px;
 		width: auto;
-		padding: 20px;
+		padding: 10px;
+		padding-bottom: 5px;
 	}
 
 	.footer {
