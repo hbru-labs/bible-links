@@ -37,11 +37,11 @@
 	}
 </script>
 
-<div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-10">
+<div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-20 sm:pt-6">
 	<div class="block mb-4">
 		<div class="flex flex-col space-y-3 items-center">
 			<SearchBar bind:searchTerm on:keypress={navigateToSearch} />
-			<div class="w-3/4">
+			<div class="w-[140px]">
 				<Button on:click={navigateToSearch} disabled={!searchTerm} />
 			</div>
 		</div>

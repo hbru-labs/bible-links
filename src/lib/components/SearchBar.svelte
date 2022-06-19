@@ -20,7 +20,7 @@
 
 <search-bar>
 	<div
-		class="flex h-10 w-full items-center space-x-2 rounded-md border-2 border-zinc-500 py-2 px-2.5 focus-within:border-indigo-600"
+		class="flex h-10 w-[280px] sm:w-[320px] items-center space-x-2 rounded-md border-2 border-zinc-500 py-2 px-2.5 focus-within:border-indigo-600"
 	>
 		<div class="my-2 flex h-7 w-7 items-center justify-center">
 			<svg
