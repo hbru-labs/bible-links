@@ -26,9 +26,12 @@
 				{$page.stuff.meta.translation_name}
 			</span>
 		</p>
-		<div class="text-20 bible-text">
-			{$page.stuff.meta.text}
+		<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
+			<div class="text-20 bible-text">
+				{$page.stuff.meta.text}
+			</div>
 		</div>
+
 		<OtherTranslations {currentTranslation} />
 	</div>
 </div>
