@@ -48,17 +48,19 @@
 	</div>
 
 	<div class="max-w-[420px] h-[480px] w-full overflow-x-hidden overflow-y-auto">
-		{#if searchResult.length}
-			<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center">
-				{#each searchResult as { _source }}
-					<ListItem
-						text={_source.text}
-						book_verse={_source.book_verse}
-						translation={_source.translation}
-						query={searchTerm}
-					/>
-				{/each}
-			</div>
-		{/if}
+		<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center justify-center">
+			{#each searchResult as { _source }}
+				<ListItem
+					text={_source.text}
+					book_verse={_source.book_verse}
+					translation={_source.translation}
+					query={searchTerm}
+				/>
+			{:else}
+				<div class="text-gray-600">
+					No results found for "{searchTerm}"
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>
