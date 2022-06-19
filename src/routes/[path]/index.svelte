@@ -14,72 +14,29 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
-	import Logo from '$lib/components/Logo.svelte';
 
 	export let currentTranslation: string;
 </script>
 
-<div class="block-container">
-	<Logo />
-
-	<div class="text-wrapper">
-		<p class="text text-20 text-bold reference">
+<div class="block-container py-0 px-2.5">
+	<div class="block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 border border-black">
+		<p class="font-bold underline mb-2">
 			{$page.stuff.meta.reference}:
-			<span class="translation_name">
+			<span class="translation_name lowercase font-normal">
 				{$page.stuff.meta.translation_name}
 			</span>
 		</p>
-		<div class="text text-20 bible-text">
+		<div class="text-20 bible-text">
 			{$page.stuff.meta.text}
 		</div>
 		<OtherTranslations {currentTranslation} />
 	</div>
-
-	<div class="text footer">
-		Powered by <a href="https://bible-api.com">https://bible-api.com</a>
-	</div>
 </div>
 
 <style>
-	.block-container {
-		padding: 0 10px;
-	}
-	.block-container > div {
-		display: block;
-		margin: 0 auto;
-		max-width: 420px;
-		width: auto;
-		padding: 20px;
-	}
-	.text-wrapper {
-		border: 1px solid #333;
-		border-radius: 8px;
-		margin-top: 40px;
-	}
-
 	.bible-text:first-letter {
 		text-transform: uppercase;
 		font-size: 1.5em;
 		font-weight: bold;
-	}
-
-	.reference {
-		text-decoration: underline;
-		margin-bottom: 8px;
-	}
-
-	.reference .translation_name {
-		font-weight: normal;
-		text-transform: lowercase;
-	}
-
-	.footer {
-		margin-top: 20px;
-		text-align: left;
-		font-size: 10px;
-		position: fixed;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
 	}
 </style>
