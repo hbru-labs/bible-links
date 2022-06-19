@@ -9,7 +9,7 @@
 	}
 
 	function highlightQuery(text: string) {
-		return text.replace(new RegExp(query, 'gi'), `<span class="bg-yellow-400">${query}</span>`);
+		return text.replace(new RegExp(query, 'gi'), `<span class="bg-yellow-200">${query}</span>`);
 	}
 </script>
 
