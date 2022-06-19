@@ -11,17 +11,25 @@
 	}
 </script>
 
-<div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-4">
-	<div class="w-60 sm:w-full">
-		<Logo size="large" />
-	</div>
+<div class="home h-screen">
+	<div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-4">
+		<div class="w-60 sm:w-full">
+			<Logo size="large" />
+		</div>
 
-	<div class="flex justify-center mb-4 w-3/5">
-		<div class="flex flex-col space-y-3 items-center max-w-[480px]">
-			<SearchBar bind:searchTerm on:keypress={navigateToSearch} />
-			<div class="w-[140px]">
-				<Button on:click={navigateToSearch} disabled={!searchTerm} />
+		<div class="flex justify-center mb-4 w-3/5">
+			<div class="flex flex-col space-y-3 items-center max-w-[480px]">
+				<SearchBar bind:searchTerm on:keypress={navigateToSearch} />
+				<div class="w-[140px]">
+					<Button on:click={navigateToSearch} disabled={!searchTerm} />
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<style>
+	.home {
+		background: linear-gradient(120deg, rgba(240, 255, 255, 0.4) 40%, rgba(255, 255, 255, 1) 100%);
+	}
+</style>
