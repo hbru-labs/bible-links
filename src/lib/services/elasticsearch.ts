@@ -1,6 +1,6 @@
 import { Client, type ClientOptions } from '@elastic/elasticsearch';
 import { getSecret } from '../utils/secret';
-import { logMethodCalls } from '../utils/helpers';
+import logger from '../utils/logger';
 import type { ESResponse } from '../utils/types';
 
 export type Index = 'bible';
@@ -21,7 +21,7 @@ export async function getES() {
 }
 
 function getAPI(client: Client) {
-	return logMethodCalls({
+	return logger.logMethodCalls({
 		/**
 		 * Search the bible index
 		 */
