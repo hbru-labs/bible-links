@@ -19,7 +19,7 @@
 </script>
 
 <div class="block-container py-0 px-2.5">
-	<div class="block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 border border-black">
+	<div class="block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 ring ring-zinc-200">
 		<p class="font-bold underline mb-2">
 			{$page.stuff.meta.reference}:
 			<span class="translation_name lowercase font-normal">

@@ -14,7 +14,7 @@
 </script>
 
 <list-item
-	class="relative flex flex-col justify-start max-w-60 w-full p-2 h-auto break-words ring-1 ring-zinc-400 hover:ring-indigo-400 transition-all ease-in-out rounded-md"
+	class="relative flex flex-col justify-start max-w-60 w-full p-2 h-auto break-words ring-1 ring-zinc-200 hover:ring-indigo-400 transition-all ease-in-out rounded-md"
 >
 	<span class="absolute top-1 left-2 underline">
 		{book_verse}
