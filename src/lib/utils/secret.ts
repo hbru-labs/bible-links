@@ -1,4 +1,4 @@
-export const secretNames = ['elasticsearch', 'redis', 'upstash'] as const;
+export const secretNames = ['elasticsearch', 'redis', 'upstash', 'openai'] as const;
 export type Secrets = {
 	es: {
 		username: string;
@@ -11,6 +11,7 @@ export type Secrets = {
 		password: string;
 		url: string;
 	};
+	openai: string;
 };
 
 export async function getSecret<T extends keyof Secrets, K extends Secrets[T]>(
