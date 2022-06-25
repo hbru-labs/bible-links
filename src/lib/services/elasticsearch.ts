@@ -28,14 +28,12 @@ function getAPI(client: Client) {
 		async search(index: Index, query: string) {
 			const { hits } = await client.search<ESResponse>({
 				index,
-				body: {
-					size: 140,
-					query: {
-						simple_query_string: {
-							query,
-							fields: ['text', 'book*', 'translation'],
-							default_operator: 'AND'
-						}
+				size: 140,
+				query: {
+					simple_query_string: {
+						query,
+						fields: ['text', 'book*', 'translation'],
+						default_operator: 'AND'
 					}
 				}
 			});
