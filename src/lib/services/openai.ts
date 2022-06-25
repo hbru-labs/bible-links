@@ -1,5 +1,6 @@
 import { getSecret } from '$lib/utils/secret';
-import { Configuration, OpenAIApi } from 'openai';
+import { Configuration, OpenAIApi, type CreateCompletionResponse } from 'openai';
+import logger from '../utils/logger';
 
 let client: OpenAIApi | null = null;
 
@@ -12,8 +13,8 @@ function getClient(apiKey: string) {
 }
 
 export default async function getOpenAI() {
-	const secret = await getSecret('openai');
-	const client = getClient(secret);
+	const { api_key } = await getSecret('openai');
+	const client = getClient(api_key);
 
 	return {
 		client,
@@ -22,19 +23,24 @@ export default async function getOpenAI() {
 }
 
 export function getAPI(openai: OpenAIApi) {
-	return {
+	return logger.logMethodCalls({
 		async textCompletion(text: string) {
-			const response = await openai.createCompletion({
-				model: 'text-davinci-002',
-				prompt: `Correct this to standard English: ${text}`,
-				temperature: 0,
-				max_tokens: 60,
-				top_p: 1,
-				frequency_penalty: 0,
-				presence_penalty: 0
-			});
+			const response = await openai
+				.createCompletion({
+					model: 'text-davinci-002',
+					prompt: `Correct this to standard English: ${text}`,
+					temperature: 0,
+					max_tokens: 60,
+					top_p: 1,
+					frequency_penalty: 0,
+					presence_penalty: 0
+				})
+				.catch((error) => {
+					logger.error(error);
+					return { data: error };
+				});
 
-			return response.data;
+			return response.data.error ? '' : (response.data as CreateCompletionResponse).choices[0].text;
 		}
-	};
+	});
 }

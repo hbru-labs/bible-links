@@ -11,7 +11,9 @@ export type Secrets = {
 		password: string;
 		url: string;
 	};
-	openai: string;
+	openai: {
+		api_key: string;
+	};
 };
 
 export async function getSecret<T extends keyof Secrets, K extends Secrets[T]>(
