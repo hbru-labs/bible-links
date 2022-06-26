@@ -1,4 +1,4 @@
-export const secretNames = ['elasticsearch', 'redis', 'upstash'] as const;
+export const secretNames = ['elasticsearch', 'redis', 'upstash', 'openai'] as const;
 export type Secrets = {
 	es: {
 		username: string;
@@ -10,6 +10,9 @@ export type Secrets = {
 		port: string;
 		password: string;
 		url: string;
+	};
+	openai: {
+		api_key: string;
 	};
 };
 
