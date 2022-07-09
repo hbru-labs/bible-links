@@ -35,6 +35,13 @@
 	function navigateToSearch() {
 		goto('/search?q=' + encodeURIComponent(searchTerm));
 	}
+
+	$: noDuplicateSearchResult = Object.values(
+		searchResult.reduce(
+			(acc, doc) => ({ ...acc, [doc._source.book_verse]: doc }),
+			{} as Record<string, ESResponse>
+		)
+	);
 </script>
 
 <div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-20 sm:pt-6">
@@ -49,7 +56,7 @@
 
 	<div class="max-w-[420px] h-[480px] w-full overflow-x-hidden overflow-y-auto">
 		<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center justify-center">
-			{#each searchResult as { _source }}
+			{#each noDuplicateSearchResult as { _source, _id } (_id)}
 				<ListItem
 					text={_source.text}
 					book_verse={_source.book_verse}
