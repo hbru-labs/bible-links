@@ -18,9 +18,6 @@ const config = {
 		prerender: {
 			enabled: false,
 		},
-		vite: {
-			define: { 'process.env': process.env },
-		}
 	}
 };
 
