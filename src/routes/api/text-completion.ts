@@ -1,5 +1,4 @@
 import getOpenAI from '$lib/services/openai';
-import logger from '$lib/utils/logger';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const post: RequestHandler = async function ({ request }) {
@@ -8,7 +7,6 @@ export const post: RequestHandler = async function ({ request }) {
 
 	let result = await openAI.api.textCompletion(query);
 	result = result.replace(/\n/gi, '');
-	logger.log({ result });
 
 	return {
 		headers: {
