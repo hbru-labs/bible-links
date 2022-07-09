@@ -27,7 +27,7 @@ export const post: RequestHandler = async function ({ request }) {
 	let result = await openAI.api.textCompletion(query);
 	result = result.replace(/\n/gi, '');
 
-	if (result && redisClient) await redisClient.set(queryHash, JSON.stringify(result));
+	if (result && redisClient) await redisClient.set(queryHash, JSON.stringify(result), { ex: 180 });
 
 	return {
 		headers: {
