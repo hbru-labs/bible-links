@@ -29,6 +29,9 @@ export const post: RequestHandler = async function ({ url }) {
 	const [res1, res2 = []] = await Promise.all(searchResultsPromise);
 
 	return {
+		headers: {
+			'cache-control': 'public, max-age=3600'
+		},
 		body: { data: JSON.stringify(res1.concat(res2)) }
 	};
 };

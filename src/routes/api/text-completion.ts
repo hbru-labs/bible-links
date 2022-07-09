@@ -10,7 +10,7 @@ export const post: RequestHandler = async function ({ request }) {
 
 	return {
 		headers: {
-			'cache-control': '3600'
+			'cache-control': 'public, max-age=3600'
 		},
 		body: { data: result }
 	};
