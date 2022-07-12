@@ -15,7 +15,7 @@
 	<img
 		width={imgSize[size]}
 		src="logo.png"
-		alt="Bible Links logo"
-		class="rounded-lg object-cover my-0 mx-auto"
+		alt="Bible Links"
+		class="rounded-lg object-cover my-0 mx-auto aspect-video"
 	/>
 </div>
