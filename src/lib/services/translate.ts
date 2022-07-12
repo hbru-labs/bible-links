@@ -1,24 +1,9 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
+import type { TargetLanguageCodeType } from '../utils/types';
 
 const projectId = 'bible-links-x01';
 const location = 'global';
 
-// convert the above type to enum
-export enum TargetLanguageCode {
-	en = 'en',
-	es = 'es',
-	fr = 'fr',
-	de = 'de',
-	it = 'it',
-	ja = 'ja',
-	ko = 'ko',
-	nl = 'nl',
-	pt = 'pt',
-	zh = 'zh',
-	ru = 'ru'
-}
-
-export type TargetLanguageCodeType = keyof typeof TargetLanguageCode;
 export type ITranslation = {
 	translatedText: string;
 	model: string;

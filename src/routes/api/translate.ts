@@ -1,4 +1,5 @@
-import translate, { TargetLanguageCode } from '$lib/services/translate';
+import translate from '$lib/services/translate';
+import { TargetLanguageCode } from '$lib/utils/types';
 import logger from '$lib/utils/logger';
 import type { RequestHandler } from '@sveltejs/kit';
 
