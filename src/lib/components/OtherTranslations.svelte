@@ -16,13 +16,21 @@
 
 	export let currentTranslation: string;
 	$: translationsEntries = otherTranslations.filter(([key]) => key !== currentTranslation);
+
+	function constructHref(tr: string) {
+		let query = `translation=${tr}`;
+		const language = $page.url.searchParams.get('language');
+		if (language) query += `&language=${language}`;
+
+		return `${$page.url.origin}/${$page.params.path}?${query}`;
+	}
 </script>
 
 <other-translations>
 	<p>See other translations:</p>
 	<div class="other-links">
 		{#each translationsEntries as [tr, title] (tr)}
-			{@const href = `${$page.url.origin}/${$page.params.path}?translation=${tr}`}
+			{@const href = constructHref(tr)}
 			<a {href} {title}>{tr};</a>
 		{/each}
 	</div>
