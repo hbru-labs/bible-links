@@ -1,8 +1,5 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
 
-// Instantiates a client
-const translationClient = new TranslationServiceClient();
-
 const projectId = 'bible-links-x01';
 const location = 'global';
 
@@ -18,6 +15,15 @@ export type TargetLanguageCode =
 	| 'pt'
 	| 'zh'
 	| 'ru';
+
+// Instantiates a client
+const translationClient = new TranslationServiceClient({
+	projectId: projectId,
+	credentials: {
+		client_email: process.env.GOOGLE_CLIENT_EMAIL,
+		private_key: process.env.GOOGLE_PRIVATE_KEY
+	}
+});
 
 export default async function translate(text: string, target: TargetLanguageCode) {
 	// Construct and Run request
