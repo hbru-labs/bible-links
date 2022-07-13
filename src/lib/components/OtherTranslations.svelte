@@ -9,20 +9,45 @@
 		web: 'World English Bible',
 		webbe: 'World English Bible (British Edition)'
 	});
+
+	const seeOtherTranslationsLabel = {
+		en: 'See other translations',
+		es: 'Ver otras traducciones',
+		fr: 'Voir les autres traductions',
+		de: 'Siehe andere Übersetzungen',
+		it: 'Vedi altre traduzioni',
+		ja: 'その他の翻訳を見る',
+		ko: '다른 번역을 보십시오',
+		nl: 'Bekijk andere vertalingen',
+		pt: 'Veja outras traduções',
+		zh: '查看其他翻译',
+		ru: 'Смотреть другие переводы'
+	};
 </script>
 
 <script lang="ts">
 	import { page } from '$app/stores';
+	import type { TargetLanguageCodeType } from '$lib/utils/types';
 
 	export let currentTranslation: string;
+	export let lang: TargetLanguageCodeType = 'en';
+
 	$: translationsEntries = otherTranslations.filter(([key]) => key !== currentTranslation);
+
+	function constructHref(tr: string) {
+		let query = `translation=${tr}`;
+		const language = $page.url.searchParams.get('language');
+		if (language) query += `&language=${language}`;
+
+		return `${$page.url.origin}/${$page.params.path}?${query}`;
+	}
 </script>
 
 <other-translations>
-	<p>See other translations:</p>
+	<p>{seeOtherTranslationsLabel[lang]}:</p>
 	<div class="other-links">
 		{#each translationsEntries as [tr, title] (tr)}
-			{@const href = `${$page.url.origin}/${$page.params.path}?translation=${tr}`}
+			{@const href = constructHref(tr)}
 			<a {href} {title}>{tr};</a>
 		{/each}
 	</div>

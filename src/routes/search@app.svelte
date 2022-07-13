@@ -57,10 +57,12 @@
 	<div class="max-w-[420px] h-[480px] w-full overflow-x-hidden overflow-y-auto">
 		<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center justify-center">
 			{#each noDuplicateSearchResult as { _source, _id } (_id)}
+				{@const translation = 'kjv'}
+				<!-- _source.translation -->
 				<ListItem
 					text={_source.text}
 					book_verse={_source.book_verse}
-					translation={_source.translation}
+					{translation}
 					query={searchTerm}
 				/>
 			{:else}

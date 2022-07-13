@@ -1,15 +1,32 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import type { Redis } from '@upstash/redis';
-import type { JSON_DATA } from '$lib/utils/types';
+import { type JSON_DATA, TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
+import translate from '$lib/services/translate';
 
 const BASE_URL = 'https://bible-api.com';
 const headers = {
 	'cache-control': 'max-age=86400'
 };
 
+async function getTranslation(text: string, lang: TargetLanguageCodeType) {
+	return translate(text, lang)
+		.then(([r]) => r.translatedText)
+		.catch(() => text);
+}
+
 export const post: RequestHandler = async ({ request }) => {
 	const req = await request.json();
-	const key = `${req.pathname}-${req.query || ''}`;
+	const paramsHash = String(req.query)
+		.slice(1)
+		.split('&')
+		.map((k) => k.split('='))
+		.reduce((acc, cur) => ({ ...acc, [cur[0]]: cur[1] }), {});
+
+	const tr = paramsHash['translation'];
+	const lang = paramsHash['language'];
+	const englishLang = TargetLanguageCode.en === lang;
+
+	const key = `${req.pathname}-${tr || ''}`;
 	let redisClient: Redis | null = null;
 
 	try {
@@ -17,6 +34,9 @@ export const post: RequestHandler = async ({ request }) => {
 		// check whether request was cached
 		const cached = await redis.get<JSON_DATA>(key);
 		if (cached) {
+			if (!englishLang) {
+				cached.text = await getTranslation(cached.text, lang);
+			}
 			return {
 				headers,
 				body: {
@@ -31,11 +51,14 @@ export const post: RequestHandler = async ({ request }) => {
 		console.log('E: reading from redis', error);
 	}
 
-	const url = `${BASE_URL}/${req.pathname}${req.query}`;
+	const url = `${BASE_URL}/${req.pathname}?translation=${tr}`;
 	const result = await fetch(url).then((r) => r.json());
 	// cache the result
 	if (result.text) {
 		await redisClient?.set(key, JSON.stringify(result));
+		if (!englishLang) {
+			result.text = await getTranslation(result.text, lang);
+		}
 	}
 
 	return {

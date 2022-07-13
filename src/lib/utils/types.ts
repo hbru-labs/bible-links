@@ -32,3 +32,20 @@ export interface ESResponse {
 	_score: number;
 	_source: BibleDocument;
 }
+
+// convert the above type to enum
+export enum TargetLanguageCode {
+	en = 'en',
+	es = 'es',
+	fr = 'fr',
+	de = 'de',
+	it = 'it',
+	ja = 'ja',
+	ko = 'ko',
+	nl = 'nl',
+	pt = 'pt',
+	zh = 'zh',
+	ru = 'ru'
+}
+
+export type TargetLanguageCodeType = keyof typeof TargetLanguageCode;
