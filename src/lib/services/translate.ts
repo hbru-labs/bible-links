@@ -15,7 +15,7 @@ const safeJSONParse = (str: string) => {
 	try {
 		return JSON.parse(str);
 	} catch (e) {
-		return str;
+		return { private_key: str };
 	}
 };
 
@@ -24,7 +24,7 @@ const translationClient = new TranslationServiceClient({
 	projectId: projectId,
 	credentials: {
 		client_email: process.env.GOOGLE_CLIENT_EMAIL,
-		private_key: safeJSONParse(process.env.GOOGLE_PRIVATE_KEY)
+		private_key: safeJSONParse(process.env.GOOGLE_PRIVATE_KEY).private_key
 	}
 });
 
