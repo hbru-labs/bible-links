@@ -33,10 +33,10 @@ export const post: RequestHandler = async ({ request }) => {
 		const { redis } = await import('$lib/services/redis');
 		// check whether request was cached
 		const cached = await redis.get<JSON_DATA>(key);
-		if (!englishLang) {
-			cached.text = await getTranslation(cached.text, lang);
-		}
 		if (cached) {
+			if (!englishLang) {
+				cached.text = await getTranslation(cached.text, lang);
+			}
 			return {
 				headers,
 				body: {
@@ -56,10 +56,9 @@ export const post: RequestHandler = async ({ request }) => {
 	// cache the result
 	if (result.text) {
 		await redisClient?.set(key, JSON.stringify(result));
-	}
-
-	if (!englishLang) {
-		result.text = await getTranslation(result.text, lang);
+		if (!englishLang) {
+			result.text = await getTranslation(result.text, lang);
+		}
 	}
 
 	return {
