@@ -21,7 +21,14 @@
 		nl: 'Bekijk andere vertalingen',
 		pt: 'Veja outras traduções',
 		zh: '查看其他翻译',
-		ru: 'Смотреть другие переводы'
+		ru: 'Смотреть другие переводы',
+		af: 'Sien ander vertalings',
+		ig: 'Hụ ntụgharị asụsụ ndị ọzọ',
+		yo: 'Wo awọn itumọ miiran',
+		zu: 'Bona ezinye izinguqulo',
+		ur: 'دیگر تراجم دیکھیں',
+		he: 'ראה תרגומים אחרים',
+		hi: 'अन्य अनुवाद देखें',
 	};
 </script>
 
