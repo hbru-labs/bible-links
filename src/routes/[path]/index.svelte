@@ -18,10 +18,10 @@
 	import { page } from '$app/stores';
 	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
 	import Select from '$lib/components/Select.svelte';
-	import { TargetLanguageCode } from '$lib/utils/types';
+	import { TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
 
 	export let currentTranslation: string;
-	export let currentLanguage: string;
+	export let currentLanguage: TargetLanguageCodeType;
 
 	$: translateOptions = Object.keys(TargetLanguageCode).map((k) => ({
 		id: k,
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 
-		<OtherTranslations {currentTranslation} />
+		<OtherTranslations {currentTranslation} lang={currentLanguage} />
 	</div>
 </div>
 
