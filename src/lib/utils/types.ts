@@ -45,7 +45,14 @@ export enum TargetLanguageCode {
 	nl = 'nl',
 	pt = 'pt',
 	zh = 'zh',
-	ru = 'ru'
+	ru = 'ru',
+	af = 'af',
+	ig = 'ig',
+	yo = 'yo',
+	zu = 'zu',
+	ur = 'ur',
+	he = 'he',
+	hi = 'hi'
 }
 
 export type TargetLanguageCodeType = keyof typeof TargetLanguageCode;
