@@ -11,20 +11,12 @@ export type ITranslation = {
 	detectedLanguageCode: TargetLanguageCodeType;
 };
 
-const safeJSONParse = (str: string) => {
-	try {
-		return JSON.parse(str);
-	} catch (e) {
-		return { private_key: str };
-	}
-};
-
 // Instantiates a client
 const translationClient = new TranslationServiceClient({
 	projectId: projectId,
 	credentials: {
 		client_email: process.env.GOOGLE_CLIENT_EMAIL,
-		private_key: safeJSONParse(process.env.GOOGLE_PRIVATE_KEY).private_key
+		private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
 	}
 });
 
