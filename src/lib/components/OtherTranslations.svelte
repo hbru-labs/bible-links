@@ -28,7 +28,7 @@
 		zu: 'Bona ezinye izinguqulo',
 		ur: 'دیگر تراجم دیکھیں',
 		he: 'ראה תרגומים אחרים',
-		hi: 'अन्य अनुवाद देखें',
+		hi: 'अन्य अनुवाद देखें'
 	};
 </script>
 
@@ -51,13 +51,16 @@
 </script>
 
 <other-translations>
-	<p>{seeOtherTranslationsLabel[lang]}:</p>
-	<div class="other-links">
-		{#each translationsEntries as [tr, title] (tr)}
-			{@const href = constructHref(tr)}
-			<a {href} {title}>{tr};</a>
-		{/each}
-	</div>
+	{#key $page.url.search}
+		<p>{seeOtherTranslationsLabel[lang]}:</p>
+		<div class="other-links">
+			{#each translationsEntries as [tr, title] (tr)}
+				{@const href = constructHref(tr)}
+
+				<a {href} {title}>{tr};</a>
+			{/each}
+		</div>
+	{/key}
 </other-translations>
 
 <style>
