@@ -2,12 +2,14 @@ lockfileVersion: 5.4
 
 specifiers:
   '@elastic/elasticsearch': ^8.2.1
+  '@google-cloud/storage': ^6.2.3
+  '@google-cloud/text-to-speech': ^4.0.0
   '@google-cloud/translate': ^7.0.0
   '@latitudelabs/urlly': ^0.1.0
   '@playwright/test': ^1.20.0
-  '@sveltejs/adapter-node': ^1.0.0-next.73
-  '@sveltejs/adapter-vercel': next
-  '@sveltejs/kit': next
+  '@sveltejs/adapter-node': 1.0.0-next.73
+  '@sveltejs/adapter-vercel': 1.0.0-next.60
+  '@sveltejs/kit': 1.0.0-next.370
   '@typescript-eslint/eslint-plugin': ^5.10.1
   '@typescript-eslint/parser': ^5.10.1
   '@upstash/redis': ^1.3.5
@@ -28,10 +30,12 @@ specifiers:
   tailwindcss: ^3.1.3
   tslib: ^2.3.1
   typescript: ~4.6.2
-  vite: ^2.9.14
+  vite: 2.9.14
 
 dependencies:
   '@elastic/elasticsearch': 8.2.1
+  '@google-cloud/storage': 6.2.3
+  '@google-cloud/text-to-speech': 4.0.0
   '@google-cloud/translate': 7.0.0
   '@latitudelabs/urlly': 0.1.0
   '@upstash/redis': 1.3.5
@@ -651,6 +655,14 @@ packages:
       - supports-color
     dev: false
 
+  /@google-cloud/paginator/3.0.7:
+    resolution: {integrity: sha512-jJNutk0arIQhmpUUQJPJErsojqo834KcyB6X7a1mxuic8i1tKXxde8E69IZxNZawRIlZdIK2QY4WALvlK5MzYQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      arrify: 2.0.1
+      extend: 3.0.2
+    dev: false
+
   /@google-cloud/projectify/3.0.0:
     resolution: {integrity: sha512-HRkZsNmjScY6Li8/kb70wjGlDDyLkVk3KvoEo9uIoxSjYLJasGiCch9+PqRVDOCGUFvEIqyogl+BeqILL4OJHA==}
     engines: {node: '>=12.0.0'}
@@ -664,6 +676,45 @@ packages:
   /@google-cloud/promisify/3.0.0:
     resolution: {integrity: sha512-91ArYvRgXWb73YvEOBMmOcJc0bDRs5yiVHnqkwoG0f3nm7nZuipllz6e7BvFESBvjkDTBC0zMD8QxedUwNLc1A==}
     engines: {node: '>=12'}
+    dev: false
+
+  /@google-cloud/storage/6.2.3:
+    resolution: {integrity: sha512-UJqn3Ln8wFBPLuwBaNu3PlhzQDL3EKKfP1+3mzLRQhcFqgpBSMPLDgAXxc6e9S0l0kqsi4GOuAA7fA+l/VAMjQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@google-cloud/paginator': 3.0.7
+      '@google-cloud/projectify': 3.0.0
+      '@google-cloud/promisify': 3.0.0
+      abort-controller: 3.0.0
+      arrify: 2.0.1
+      async-retry: 1.3.3
+      compressible: 2.0.18
+      duplexify: 4.1.2
+      ent: 2.2.0
+      extend: 3.0.2
+      gaxios: 5.0.1
+      google-auth-library: 8.1.0
+      mime: 3.0.0
+      mime-types: 2.1.35
+      p-limit: 3.1.0
+      pumpify: 2.0.1
+      retry-request: 5.0.1
+      stream-events: 1.0.5
+      teeny-request: 8.0.0
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
+  /@google-cloud/text-to-speech/4.0.0:
+    resolution: {integrity: sha512-bveKEPMRE66C+AVSrXlkyrJ020n1H17+nCP1H9DqqFPucVoCv8FLCjgrih4GF6z/ez5xd8mQHCNv6MgF8SUQIQ==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      google-gax: 3.1.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
     dev: false
 
   /@google-cloud/translate/7.0.0:
@@ -1323,6 +1374,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /async-retry/1.3.3:
+    resolution: {integrity: sha512-wfr/jstw9xNi/0teMHrRW7dsz3Lt5ARhYNZ2ewpadnhaIp5mbALhOAP+EAdsC7t4Z6wqsDVv9+W6gm1Dk9mEyw==}
+    dependencies:
+      retry: 0.13.1
+    dev: false
+
   /asynckit/0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: false
@@ -1551,6 +1608,13 @@ packages:
     dependencies:
       '@types/json-buffer': 3.0.0
       json-buffer: 3.0.1
+    dev: false
+
+  /compressible/2.0.18:
+    resolution: {integrity: sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==}
+    engines: {node: '>= 0.6'}
+    dependencies:
+      mime-db: 1.52.0
     dev: false
 
   /concat-map/0.0.1:
@@ -2928,7 +2992,6 @@ packages:
     resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
     engines: {node: '>=10.0.0'}
     hasBin: true
-    dev: true
 
   /mimic-response/1.0.1:
     resolution: {integrity: sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==}
@@ -3142,6 +3205,13 @@ packages:
   /p-cancelable/3.0.0:
     resolution: {integrity: sha512-mlVgR3PGuzlo0MmTdk4cXqXWlwQDLnONTAg6sm62XkMJEiRxN3GL3SffkYvqwonbkJBcrI7Uvv5Zh9yjvn2iUw==}
     engines: {node: '>=12.20'}
+    dev: false
+
+  /p-limit/3.1.0:
+    resolution: {integrity: sha512-TYOanM3wGwNGsZN2cVTYPArw454xnXj5qmWF1bEoAc4+cU/ol7GVh7odevjp1FNHduHc3KZMcFduxU5Xc6uJRQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      yocto-queue: 0.1.0
     dev: false
 
   /parent-module/1.0.1:
@@ -3388,6 +3458,14 @@ packages:
       end-of-stream: 1.4.4
       once: 1.4.0
 
+  /pumpify/2.0.1:
+    resolution: {integrity: sha512-m7KOje7jZxrmutanlkS1daj1dS6z6BgslzOXmcSEpIlCxM3VJH7lG5QLeck/6hgF6F4crFf01UtQmNsJfweTAw==}
+    dependencies:
+      duplexify: 4.1.2
+      inherits: 2.0.4
+      pump: 3.0.0
+    dev: false
+
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
@@ -3484,6 +3562,11 @@ packages:
     resolution: {integrity: sha1-G0KmJmoh8HQh0bC1S33BZ7AcATs=}
     engines: {node: '>= 4'}
     dev: true
+
+  /retry/0.13.1:
+    resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
+    engines: {node: '>= 4'}
+    dev: false
 
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
@@ -4117,3 +4200,8 @@ packages:
     dependencies:
       buffer-crc32: 0.2.13
     dev: true
+
+  /yocto-queue/0.1.0:
+    resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
+    engines: {node: '>=10'}
+    dev: false
