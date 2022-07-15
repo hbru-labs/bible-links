@@ -20,6 +20,8 @@
 	import Select from '$lib/components/Select.svelte';
 	import { TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
 	import { truncate } from '$lib/utils/truncate';
+	import TextToSpeech from '$lib/components/TextToSpeech.svelte';
+	import { isTranslationLang } from '$lib/utils/typeGuards';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
@@ -38,7 +40,7 @@
 </script>
 
 <div class="block-container py-0 px-2.5">
-	<div class="block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 ring ring-zinc-200">
+	<div class="border-container">
 		<p class="font-bold underline mb-2 relative">
 			{$page.stuff.meta.reference}:
 			<span
@@ -62,6 +64,12 @@
 
 		<OtherTranslations {currentTranslation} lang={currentLanguage} />
 	</div>
+
+	{#if isTranslationLang(currentLanguage)}
+		<div class="border-container">
+			<TextToSpeech text={$page.stuff.meta.text} lang={currentLanguage} />
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -69,5 +77,9 @@
 		text-transform: uppercase;
 		font-size: 1.5em;
 		font-weight: bold;
+	}
+
+	.border-container {
+		@apply block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 ring ring-zinc-200;
 	}
 </style>
