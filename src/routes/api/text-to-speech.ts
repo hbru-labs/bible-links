@@ -1,20 +1,23 @@
 import textToSpeech from '$lib/services/textToSpeech';
 import logger from '$lib/utils/logger';
 import type { RequestHandler } from '@sveltejs/kit';
+import { TextToSpeechLanguages } from '$lib/utils/constants';
 
 export const post: RequestHandler = async function ({ request }) {
-	const { text } = await request.json();
+	const { text, code } = await request.json();
 
-	if (!text) {
+	if (!text || !TextToSpeechLanguages[code]) {
 		return {
 			status: 400,
-			error: {
-				message: 'Please specify the text to generate speech for'
+			body: {
+				error: {
+					message: 'Please specify the text and language code'
+				}
 			}
 		};
 	}
 
-	const response = await textToSpeech(text).catch((e) => {
+	const response = await textToSpeech(text, code).catch((e) => {
 		logger.error('E: textToSpeech', e);
 		return { error: e };
 	});
@@ -22,7 +25,7 @@ export const post: RequestHandler = async function ({ request }) {
 	if (typeof response === 'string') {
 		return {
 			headers: {
-				'cache-control': 'public, max-age=3600'
+				'cache-control': 'public, max-age=31536000'
 			},
 			body: { data: response }
 		};
@@ -30,6 +33,6 @@ export const post: RequestHandler = async function ({ request }) {
 
 	return {
 		status: 500,
-		error: response.error
+		body: { error: response.error }
 	};
 };

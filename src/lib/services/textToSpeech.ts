@@ -1,9 +1,11 @@
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
-import { PROJECT_ID } from '../utils/constants';
+import { PROJECT_ID, TextToSpeechLanguages } from '../utils/constants';
 import safeParseJSON from '../utils/safeParseJSON';
 import crypto from 'node:crypto';
 import saveSpeechAudio from './helpers/saveSpeechAudio';
 import getSpeechAudio from './helpers/getSpeechAudio';
+
+type SpeechLanguages = keyof typeof TextToSpeechLanguages;
 
 // https://cloud.google.com/text-to-speech/docs/libraries
 const client = new TextToSpeechClient({
@@ -14,7 +16,7 @@ const client = new TextToSpeechClient({
 	}
 });
 
-export default async function textToSpeech(text: string) {
+export default async function textToSpeech(text: string, code: SpeechLanguages) {
 	const textHash = crypto.createHash('md5').update(text).digest('hex');
 	const filePath = `${textHash}.mp3`;
 
@@ -25,7 +27,7 @@ export default async function textToSpeech(text: string) {
 	const [response] = await client.synthesizeSpeech({
 		input: { text },
 		// Select the language and SSML voice gender (optional)
-		voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' },
+		voice: { languageCode: TextToSpeechLanguages[code], ssmlGender: 'NEUTRAL' },
 		// select the type of audio encoding
 		audioConfig: { audioEncoding: 'MP3' }
 	});
