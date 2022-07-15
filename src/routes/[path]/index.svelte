@@ -19,6 +19,7 @@
 	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
+	import { truncate } from '$lib/utils/truncate';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
@@ -40,8 +41,11 @@
 	<div class="block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 ring ring-zinc-200">
 		<p class="font-bold underline mb-2 relative">
 			{$page.stuff.meta.reference}:
-			<span class="translation_name lowercase font-normal">
-				{$page.stuff.meta.translation_name}
+			<span
+				class="translation_name lowercase font-normal"
+				title={$page.stuff.meta.translation_name}
+			>
+				{truncate($page.stuff.meta.translation_name, 22)}
 			</span>
 
 			<span class="absolute right-0">

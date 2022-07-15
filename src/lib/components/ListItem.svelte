@@ -1,12 +1,11 @@
 <script lang="ts">
+import { truncate } from "$lib/utils/truncate";
+
+
 	export let text: string;
 	export let book_verse: string;
 	export let translation: string;
 	export let query: string;
-
-	function truncate(text: string, length: number = 140) {
-		return text.length > length ? text.slice(0, length) + '...' : text;
-	}
 
 	function highlightQuery(text: string) {
 		return text.replace(new RegExp(query, 'gi'), `<span class="bg-yellow-200">${query}</span>`);

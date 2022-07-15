@@ -1082,6 +1082,12 @@ video {
     width: 320px;
   }
 
+  .sm\:truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .sm\:pt-6 {
     padding-top: 1.5rem;
   }
