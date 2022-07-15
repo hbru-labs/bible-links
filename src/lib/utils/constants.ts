@@ -48,4 +48,4 @@ export const seeOtherTranslationsLabel = {
 	ur: 'دیگر تراجم دیکھیں',
 	he: 'ראה תרגומים אחרים',
 	hi: 'अन्य अनुवाद देखें'
-};
+} as const;
