@@ -19,14 +19,17 @@ export const post: RequestHandler = async function ({ request }) {
 		return { error: e };
 	});
 
-	if ('error' in response) {
+	if (typeof response === 'string') {
 		return {
-			status: 500,
-			error: response.error
+			headers: {
+				'cache-control': 'public, max-age=3600'
+			},
+			body: { data: response }
 		};
 	}
 
 	return {
-		body: { data: 'response' }
+		status: 500,
+		error: response.error
 	};
 };
