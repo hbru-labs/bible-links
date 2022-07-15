@@ -4,9 +4,9 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { TextToSpeechLanguages } from '$lib/utils/constants';
 
 export const post: RequestHandler = async function ({ request }) {
-	const { text, code } = await request.json();
+	const { text, lang } = await request.json();
 
-	if (!text || !TextToSpeechLanguages[code]) {
+	if (!text || !TextToSpeechLanguages[lang]) {
 		return {
 			status: 400,
 			body: {
@@ -17,7 +17,7 @@ export const post: RequestHandler = async function ({ request }) {
 		};
 	}
 
-	const response = await textToSpeech(text, code).catch((e) => {
+	const response = await textToSpeech(text, lang).catch((e) => {
 		logger.error('E: textToSpeech', e);
 		return { error: e };
 	});

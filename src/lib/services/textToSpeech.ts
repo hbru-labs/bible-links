@@ -16,8 +16,8 @@ const client = new TextToSpeechClient({
 	}
 });
 
-export default async function textToSpeech(text: string, code: SpeechLanguages) {
-	const languageCode = TextToSpeechLanguages[code];
+export default async function textToSpeech(text: string, lang: SpeechLanguages) {
+	const languageCode = TextToSpeechLanguages[lang];
 	const textHash = crypto
 		.createHash('md5')
 		.update(text + languageCode)
