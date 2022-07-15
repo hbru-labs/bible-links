@@ -49,3 +49,18 @@ export const seeOtherTranslationsLabel = {
 	he: 'ראה תרגומים אחרים',
 	hi: 'अन्य अनुवाद देखें'
 } as const;
+
+export const TextToSpeechPlayCommand = {
+	en: 'Play the text',
+	es: 'Reproducir el texto',
+	fr: 'Jouer le texte',
+	de: 'Spielen Sie den Text ab',
+	it: 'Riproduci il testo',
+	ja: 'テキストを再生する',
+	ko: '텍스트 재생',
+	nl: 'Speel de tekst af',
+	pt: 'Reproduza o texto',
+	ru: 'Воспроизвести текст',
+	af: 'Speel die teks',
+	hi: 'पाठ चलाएं'
+} as const;
