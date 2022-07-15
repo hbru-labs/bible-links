@@ -1,15 +1,11 @@
-import { bucketName } from '$lib/utils/constants';
-import logger from '$lib/utils/logger';
+import { BUCKET_NAME, CONSTRUCT_PATH } from '$lib/utils/constants';
 import storage from '../storage';
 import getSignedURL from './getSignedURL';
 
-// const fullBucketName = `gs://${storage.bucket(bucketName).name}`;
-
 export default async function saveSpeechAudio(path: string, audioContent: string | Uint8Array) {
-	const bucketFile = storage.bucket(bucketName).file(path);
+	const bucketFile = storage.bucket(BUCKET_NAME).file(CONSTRUCT_PATH(path));
 
 	const payload = Buffer.from(audioContent);
-	logger.info({ payload });
 
 	await bucketFile.save(payload, {
 		metadata: {
@@ -19,7 +15,5 @@ export default async function saveSpeechAudio(path: string, audioContent: string
 		contentType: 'audio/mpeg'
 	});
 
-	const signedURL = await getSignedURL(bucketFile);
-
-	return { uri: bucketFile.cloudStorageURI, signedURL };
+	return getSignedURL(bucketFile);
 }

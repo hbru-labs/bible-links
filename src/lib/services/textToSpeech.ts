@@ -16,20 +16,21 @@ const client = new TextToSpeechClient({
 
 export default async function textToSpeech(text: string) {
 	const textHash = crypto.createHash('md5').update(text).digest('hex');
-	const existingResult = await getSpeechAudio(textHash);
+	const filePath = `${textHash}.mp3`;
 
+	const existingResult = await getSpeechAudio(filePath);
 	if (existingResult) return existingResult;
 
 	// Performs the text-to-speech request
 	const [response] = await client.synthesizeSpeech({
-		input: { text: text },
+		input: { text },
 		// Select the language and SSML voice gender (optional)
 		voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' },
 		// select the type of audio encoding
 		audioConfig: { audioEncoding: 'MP3' }
 	});
 
-	const result = await saveSpeechAudio(`${textHash}.mp3`, response.audioContent);
+	const result = await saveSpeechAudio(filePath, response.audioContent);
 
 	return result;
 }
