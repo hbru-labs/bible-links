@@ -9,8 +9,10 @@ export const post: RequestHandler = async function ({ request }) {
 	if (!TargetLanguageCode[target]) {
 		return {
 			status: 400,
-			error: {
-				message: 'Specified target language is not supported'
+			body: {
+				error: {
+					message: 'Specified target language is not supported'
+				}
 			}
 		};
 	}
@@ -18,8 +20,10 @@ export const post: RequestHandler = async function ({ request }) {
 	if (!text) {
 		return {
 			status: 400,
-			error: {
-				message: 'Please specify the text to translate'
+			body: {
+				error: {
+					message: 'Please specify the text to translate'
+				}
 			}
 		};
 	}
@@ -30,7 +34,10 @@ export const post: RequestHandler = async function ({ request }) {
 
 	if ('error' in translation) {
 		logger.error('E: translation', translation.error);
-		return { status: 500, error: translation.error };
+		return {
+			status: 500,
+			body: { error: translation.error }
+		};
 	}
 
 	return {
