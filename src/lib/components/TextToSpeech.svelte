@@ -8,8 +8,6 @@
 			? error.message
 			: error
 			? JSON.stringify(error)
-			: errorData
-			? JSON.stringify(errorData)
 			: 'Something went wrong';
 	};
 </script>
