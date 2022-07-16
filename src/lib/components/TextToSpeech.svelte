@@ -4,15 +4,26 @@
 	import { page } from '$app/stores';
 	import Spinner from './Spinner.svelte';
 	import Snackbar from './Snackbar.svelte';
+	import type { Media } from '$lib/utils/types';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
 	export let source: string = '';
+	export let media: Media;
 
 	let loading = false;
 	let errorMessage = '';
 
-	$: if (lang) source = '';
+	$: if (lang) {
+		source = '';
+		if (media === 'audio') {
+			loading = true;
+		}
+	}
+
+	$: if (source && media === 'audio') {
+		loading = false;
+	}
 
 	async function converTextToSpeech() {
 		if (loading) return;
@@ -59,7 +70,7 @@
 				<button
 					on:click={converTextToSpeech}
 					class="hover:bg-zinc-100 px-4 py-3 my-2 rounded-full min-w-[280px] flex justify-center items-center"
-					class:bg-zinc-100={loading}
+					class:bg-zinc-100={loading || media === 'audio'}
 					disabled={loading}
 				>
 					{#if loading}

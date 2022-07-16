@@ -8,5 +8,6 @@ declare namespace App {
 	// interface Session {}
 	export interface Stuff {
 		meta: any;
+		audioSourcePromise: Promise<any>;
 	}
 }

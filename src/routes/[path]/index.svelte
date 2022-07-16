@@ -1,14 +1,15 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
-	import { updateQueryParams } from '$lib/utils/urlly';
 
 	export const load: Load = async ({ url }) => {
 		const translation = url.searchParams.get('translation');
 		const language = url.searchParams.get('language');
+		const media = url.searchParams.get('media');
 		return {
 			props: {
 				currentTranslation: translation || '',
-				currentLanguage: language || 'en'
+				currentLanguage: language || 'en',
+				media: media || 'text'
 			}
 		};
 	};
@@ -16,26 +17,18 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
-	import Select from '$lib/components/Select.svelte';
-	import { TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
-	import { truncate } from '$lib/utils/truncate';
+	import type { TargetLanguageCodeType, Media } from '$lib/utils/types';
 	import TextToSpeech from '$lib/components/TextToSpeech.svelte';
 	import { isTranslationLang } from '$lib/utils/typeGuards';
+	import MediaRenderer from '$lib/components/MediaRenderer.svelte';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
+	export let media: Media;
 
-	$: translateOptions = Object.keys(TargetLanguageCode).map((k) => ({
-		id: k,
-		label: TargetLanguageCode[k]
-	}));
-
-	function onchange(e: Event) {
-		const target = e.target as HTMLSelectElement;
-		const value = target.value;
-
-		updateQueryParams({ language: value });
+	let source = '';
+	$: if (currentLanguage && media === 'audio') {
+		$page.stuff.audioSourcePromise.then((r) => (source = r)).catch(() => (source = ''));
 	}
 </script>
 
@@ -43,50 +36,30 @@
 	<div
 		class="wrapper-container block mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 overflow-x-hidden overflow-y-scroll"
 	>
-		<div class="border-container">
-			<p class="font-bold underline mb-2 relative">
-				{$page.stuff.meta.reference}:
-				<span
-					class="translation_name lowercase font-normal"
-					title={$page.stuff.meta.translation_name}
-				>
-					{truncate($page.stuff.meta.translation_name, 22)}
-				</span>
+		{#if media === 'text' || media === 'both'}
+			<MediaRenderer {currentLanguage} {currentTranslation} />
+		{/if}
 
-				<span class="absolute right-0">
-					<Select options={translateOptions} on:change={onchange} value={currentLanguage}>
-						<div slot="label" />
-					</Select>
-				</span>
-			</p>
-			<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
-				<div class="text-20 bible-text">
-					{$page.stuff.meta.text}
-				</div>
-			</div>
-
-			<OtherTranslations {currentTranslation} lang={currentLanguage} />
-		</div>
-
-		{#if isTranslationLang(currentLanguage)}
-			<div class="border-container">
-				<TextToSpeech text={$page.stuff.meta.text} lang={currentLanguage} />
-			</div>
+		{#if isTranslationLang(currentLanguage) && (media === 'audio' || media === 'both')}
+			<MediaRenderer
+				{currentLanguage}
+				{currentTranslation}
+				hideHeader={media === 'both'}
+				hideFooter={media === 'both'}
+			>
+				<TextToSpeech
+					slot="content"
+					text={$page.stuff.meta.text}
+					lang={currentLanguage}
+					{media}
+					{source}
+				/>
+			</MediaRenderer>
 		{/if}
 	</div>
 </div>
 
 <style>
-	.bible-text:first-letter {
-		text-transform: uppercase;
-		font-size: 1.5em;
-		font-weight: bold;
-	}
-
-	.border-container {
-		@apply block w-full p-5 rounded-lg mt-20 ring ring-zinc-200;
-	}
-
 	.wrapper-container::-webkit-scrollbar {
 		display: none;
 	}

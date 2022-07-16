@@ -56,3 +56,5 @@ export enum TargetLanguageCode {
 }
 
 export type TargetLanguageCodeType = keyof typeof TargetLanguageCode;
+
+export type Media = 'text' | 'audio' | 'both';
