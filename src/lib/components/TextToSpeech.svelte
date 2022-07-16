@@ -2,6 +2,7 @@
 	import { TextToSpeechPlayCommand, type TextToSpeechLanguages } from '$lib/utils/constants';
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
+	import Spinner from './Spinner.svelte';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
@@ -42,12 +43,12 @@
 			{:else}
 				<button
 					on:click={converTextToSpeech}
-					class="hover:bg-zinc-200 px-4 py-2 my-3 rounded-md min-w-[280px]"
-					class:bg-zinc-200={loading}
+					class="hover:bg-zinc-100 px-4 py-3 my-2 rounded-full min-w-[280px] flex justify-center items-center"
+					class:bg-zinc-100={loading}
 					disabled={loading}
 				>
 					{#if loading}
-						Loading...
+						<Spinner />
 					{:else}
 						{TextToSpeechPlayCommand[lang]}
 					{/if}
