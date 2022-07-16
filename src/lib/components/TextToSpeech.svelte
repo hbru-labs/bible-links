@@ -5,6 +5,7 @@
 	import Spinner from './Spinner.svelte';
 	import Snackbar from './Snackbar.svelte';
 	import type { Media } from '$lib/utils/types';
+	import { captureException } from '$lib/services/sentryNode';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
@@ -52,6 +53,13 @@
 						: error?.message
 						? error.message
 						: 'Something went wrong';
+
+				captureException(error, {
+					extra: {
+						endpoint: false,
+						filename: 'textTospeech.svelte'
+					}
+				});
 			});
 
 		loading = false;

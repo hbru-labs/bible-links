@@ -12,4 +12,12 @@ Sentry.setContext('sentry-browser', {
 	date: new Date()
 });
 
+setTimeout(() => {
+	try {
+		throw new Error('Error in setTimeout');
+	} catch (e) {
+		Sentry.captureException(e);
+	}
+}, 99);
+
 export const captureException = Sentry.captureException;

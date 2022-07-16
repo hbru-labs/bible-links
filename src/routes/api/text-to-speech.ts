@@ -31,6 +31,14 @@ export const post: RequestHandler = async function ({ request }) {
 
 	const response = await textToSpeech(text, lang).catch((e) => {
 		logger.error('E: textToSpeech', e);
+		captureException(e, {
+			extra: {
+				endpoint: true,
+				filename: 'text-to-speech.ts'
+			}
+		});
+		transaction.finish();
+
 		return { error: e };
 	});
 
@@ -42,14 +50,6 @@ export const post: RequestHandler = async function ({ request }) {
 			body: { data: response }
 		};
 	}
-
-	captureException(response.error, {
-		extra: {
-			endpoint: true,
-			filename: 'text-to-speech'
-		}
-	});
-	transaction.finish();
 
 	return {
 		status: 500,
