@@ -20,4 +20,14 @@ Sentry.setContext('sentry-node', {
 	date: new Date()
 });
 
+setTimeout(() => {
+	try {
+		throw new Error('Error in setTimeout');
+	} catch (e) {
+		Sentry.captureException(e);
+	} finally {
+		transaction.finish();
+	}
+}, 99);
+
 export const captureException = Sentry.captureException;
