@@ -51,6 +51,8 @@
 						? error
 						: error?.message
 						? error.message
+							? error
+							: JSON.stringify(error)
 						: 'Something went wrong';
 			});
 
