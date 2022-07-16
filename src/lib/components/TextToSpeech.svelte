@@ -1,3 +1,19 @@
+<script lang="ts" context="module">
+	const extractError = (errorData: any) => {
+		const error = errorData?.error;
+
+		return typeof error === 'string'
+			? error
+			: error?.message
+			? error.message
+			: error
+			? JSON.stringify(error)
+			: errorData
+			? JSON.stringify(errorData)
+			: 'Something went wrong';
+	};
+</script>
+
 <script lang="ts">
 	import { TextToSpeechPlayCommand, type TextToSpeechLanguages } from '$lib/utils/constants';
 	import { fade } from 'svelte/transition';
@@ -5,6 +21,7 @@
 	import Spinner from './Spinner.svelte';
 	import Snackbar from './Snackbar.svelte';
 	import type { Media } from '$lib/utils/types';
+	import { captureException } from '$lib/services/sentryBrowser';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
@@ -44,16 +61,14 @@
 				throw json;
 			})
 			.then((r) => (source = r.data))
-			.catch(async (e) => {
-				const error = (await e).error;
-				errorMessage =
-					typeof error === 'string'
-						? error
-						: error?.message
-						? error.message
-							? error
-							: JSON.stringify(error)
-						: 'Something went wrong';
+			.catch(async (err) => {
+				errorMessage = extractError(await err);
+				captureException(errorMessage, {
+					extra: {
+						endpoint: false,
+						filename: 'textTospeech.svelte'
+					}
+				});
 			});
 
 		loading = false;
