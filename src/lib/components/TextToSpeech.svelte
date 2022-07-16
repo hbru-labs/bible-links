@@ -25,11 +25,12 @@
 	export let lang: keyof typeof TextToSpeechLanguages;
 	export let source: string = '';
 	export let media: Media;
+	export let translation: string;
 
 	let loading = false;
 	let errorMessage = '';
 
-	$: if (lang) {
+	$: if (lang || translation) {
 		source = '';
 		if (media === 'audio') {
 			loading = true;
@@ -38,6 +39,13 @@
 
 	$: if (source && media === 'audio') {
 		loading = false;
+	}
+
+	$: if (media === 'audio') {
+		$page.stuff.audioSourcePromise
+			.then((r) => (source = r))
+			.catch(() => (source = ''))
+			.finally(() => (loading = false));
 	}
 
 	async function converTextToSpeech() {
@@ -74,10 +82,10 @@
 </script>
 
 <text-to-speech>
-	{#key lang}
+	{#key lang || translation}
 		<div class="flex flex-col items-center">
 			{#if source}
-				<audio controls class="my-2" transition:fade|local>
+				<audio controls class="my-2" in:fade|local>
 					<source src={source} type="audio/mpeg" />
 					Your browser does not support the audio element.
 				</audio>
