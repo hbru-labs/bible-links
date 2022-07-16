@@ -1,6 +1,5 @@
 <script lang="ts">
-import { truncate } from "$lib/utils/truncate";
-
+	import truncate from '$lib/utils/truncate';
 
 	export let text: string;
 	export let book_verse: string;
