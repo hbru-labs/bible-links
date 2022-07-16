@@ -12,7 +12,7 @@ specifiers:
   '@sentry/tracing': ^7.7.0
   '@sveltejs/adapter-node': 1.0.0-next.73
   '@sveltejs/adapter-vercel': 1.0.0-next.60
-  '@sveltejs/kit': 1.0.0-next.370
+  '@sveltejs/kit': 1.0.0-next.372
   '@typescript-eslint/eslint-plugin': ^5.10.1
   '@typescript-eslint/parser': ^5.10.1
   '@upstash/redis': ^1.3.5
@@ -54,7 +54,7 @@ devDependencies:
   '@playwright/test': 1.20.2
   '@sveltejs/adapter-node': 1.0.0-next.73
   '@sveltejs/adapter-vercel': 1.0.0-next.60
-  '@sveltejs/kit': 1.0.0-next.370_svelte@3.46.6+vite@2.9.14
+  '@sveltejs/kit': 1.0.0-next.372_svelte@3.46.6+vite@2.9.14
   '@typescript-eslint/eslint-plugin': 5.17.0_nws7qn7w3iq2qnd7fkwkgguqdm
   '@typescript-eslint/parser': 5.17.0_hrkuebk64jiu2ut2d2sm4oylnu
   autoprefixer: 10.4.7_postcss@8.4.14
@@ -1013,15 +1013,15 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.370_svelte@3.46.6+vite@2.9.14:
-    resolution: {integrity: sha512-HAQtw8IjXs9yOPWKpuwpGgDT8x6Dgqm14NmFx0emF52vo5wn3tQzu0cBx299Po2RdRgfSDFKrNqVSlL1hVTHcA==}
+  /@sveltejs/kit/1.0.0-next.372_svelte@3.46.6+vite@2.9.14:
+    resolution: {integrity: sha512-pcnDfV8YQwj7d/SCaKWT7yPBrmgkPH9Dc4UIeX8yTLXDu8IPzI5kukEOy4xf6LjyJsuSGPy1Ch91ULugtVIdAQ==}
     engines: {node: '>=16.9'}
     hasBin: true
     peerDependencies:
       svelte: ^3.44.0
       vite: ^2.9.10
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 1.0.1_svelte@3.46.6+vite@2.9.14
+      '@sveltejs/vite-plugin-svelte': 1.0.0-next.49_svelte@3.46.6+vite@2.9.14
       chokidar: 3.5.3
       sade: 1.8.1
       svelte: 3.46.6
@@ -1031,13 +1031,13 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/vite-plugin-svelte/1.0.1_svelte@3.46.6+vite@2.9.14:
-    resolution: {integrity: sha512-PorCgUounn0VXcpeJu+hOweZODKmGuLHsLomwqSj+p26IwjjGffmYQfVHtiTWq+NqaUuuHWWG7vPge6UFw4Aeg==}
-    engines: {node: ^14.18.0 || >= 16}
+  /@sveltejs/vite-plugin-svelte/1.0.0-next.49_svelte@3.46.6+vite@2.9.14:
+    resolution: {integrity: sha512-AKh0Ka8EDgidnxWUs8Hh2iZLZovkETkefO99XxZ4sW4WGJ7VFeBx5kH/NIIGlaNHLcrIvK3CK0HkZwC3Cici0A==}
+    engines: {node: ^14.13.1 || >= 16}
     peerDependencies:
       diff-match-patch: ^1.0.5
       svelte: ^3.44.0
-      vite: ^3.0.0
+      vite: ^2.9.0
     peerDependenciesMeta:
       diff-match-patch:
         optional: true
