@@ -1,3 +1,19 @@
+<script lang="ts" context="module">
+	const extractError = (errorData: any) => {
+		const error = errorData?.error;
+
+		return typeof error === 'string'
+			? error
+			: error?.message
+			? error.message
+			: error
+			? JSON.stringify(error)
+			: errorData
+			? JSON.stringify(errorData)
+			: 'Something went wrong';
+	};
+</script>
+
 <script lang="ts">
 	import { TextToSpeechPlayCommand, type TextToSpeechLanguages } from '$lib/utils/constants';
 	import { fade } from 'svelte/transition';
@@ -45,16 +61,9 @@
 				throw json;
 			})
 			.then((r) => (source = r.data))
-			.catch(async (e) => {
-				const error = (await e).error;
-				errorMessage =
-					typeof error === 'string'
-						? error
-						: error?.message
-						? error.message
-						: 'Something went wrong';
-
-				captureException(error, {
+			.catch(async (err) => {
+				errorMessage = extractError(await err);
+				captureException(errorMessage, {
 					extra: {
 						endpoint: false,
 						filename: 'textTospeech.svelte'
