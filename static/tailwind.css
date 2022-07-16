@@ -659,14 +659,14 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.my-3 {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .mb-4 {
@@ -685,36 +685,12 @@ video {
   margin-top: 1.25rem;
 }
 
-.mt-20 {
-  margin-top: 5rem;
-}
-
 .mb-2 {
   margin-bottom: 0.5rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mt-3 {
-  margin-top: 0.75rem;
-}
-
-.mb-20 {
-  margin-bottom: 5rem;
-}
-
-.mb-\[20\] {
-  margin-bottom: 20;
-}
-
-.mb-\[120\] {
-  margin-bottom: 120;
-}
-
-.mb-\[120px\] {
-  margin-bottom: 120px;
+.mt-20 {
+  margin-top: 5rem;
 }
 
 .block {
@@ -777,40 +753,16 @@ video {
   height: 1.5rem;
 }
 
-.h-60 {
-  height: 15rem;
-}
-
-.h-24 {
-  height: 6rem;
+.h-full {
+  height: 100%;
 }
 
 .max-h-\[420px\] {
   max-height: 420px;
 }
 
-.max-h-screen {
-  max-height: 100vh;
-}
-
-.max-h-full {
-  max-height: 100%;
-}
-
 .max-h-\[720px\] {
   max-height: 720px;
-}
-
-.max-h-\[1080px\] {
-  max-height: 1080px;
-}
-
-.max-h-\[80px\] {
-  max-height: 80px;
-}
-
-.max-h-\[680px\] {
-  max-height: 680px;
 }
 
 .w-60 {
@@ -845,30 +797,6 @@ video {
   width: 1.75rem;
 }
 
-.w-4\/5 {
-  width: 80%;
-}
-
-.w-\[320px\] {
-  width: 320px;
-}
-
-.w-24 {
-  width: 6rem;
-}
-
-.min-w-\[300\] {
-  min-width: 300;
-}
-
-.min-w-\[320px\] {
-  min-width: 320px;
-}
-
-.min-w-\[320\] {
-  min-width: 320;
-}
-
 .min-w-\[280px\] {
   min-width: 280px;
 }
@@ -881,10 +809,6 @@ video {
   max-width: 420px;
 }
 
-.max-w-\[424px\] {
-  max-width: 424px;
-}
-
 .max-w-\[422px\] {
   max-width: 422px;
 }
@@ -895,10 +819,6 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.flex-row {
-  flex-direction: row;
 }
 
 .flex-col {
@@ -951,10 +871,6 @@ video {
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.overflow-x-auto {
-  overflow-x: auto;
-}
-
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -983,18 +899,6 @@ video {
 
 .rounded-lg {
   border-radius: 0.5rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
-}
-
-.rounded-sm {
-  border-radius: 0.125rem;
-}
-
-.rounded-xl {
-  border-radius: 0.75rem;
 }
 
 .rounded-full {
@@ -1037,16 +941,6 @@ video {
   background-color: transparent;
 }
 
-.bg-zinc-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(228 228 231 / var(--tw-bg-opacity));
-}
-
-.bg-red-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
-}
-
 .bg-zinc-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(244 244 245 / var(--tw-bg-opacity));
@@ -1069,10 +963,6 @@ video {
   padding: 1.25rem;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1093,34 +983,19 @@ video {
   padding-right: 0.625rem;
 }
 
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-}
-
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
 }
 
 .pt-20 {
@@ -1129,18 +1004,6 @@ video {
 
 .pl-0 {
   padding-left: 0px;
-}
-
-.pb-\[120px\] {
-  padding-bottom: 120px;
-}
-
-.pb-20 {
-  padding-bottom: 5rem;
-}
-
-.pb-40 {
-  padding-bottom: 10rem;
 }
 
 .pb-10 {
@@ -1155,17 +1018,16 @@ video {
   text-align: center;
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 .font-bold {
   font-weight: 700;
 }
 
 .font-normal {
   font-weight: 400;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {
@@ -1237,16 +1099,6 @@ video {
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-zinc-500:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(113 113 122 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-zinc-200:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(228 228 231 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-zinc-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(244 244 245 / var(--tw-bg-opacity));
@@ -1294,12 +1146,6 @@ video {
 
   .sm\:w-\[320px\] {
     width: 320px;
-  }
-
-  .sm\:truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .sm\:pt-6 {
