@@ -5,7 +5,7 @@
 	import Spinner from './Spinner.svelte';
 	import Snackbar from './Snackbar.svelte';
 	import type { Media } from '$lib/utils/types';
-	import { captureException } from '$lib/services/sentryNode';
+	import { captureException } from '$lib/services/sentryBrowser';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
