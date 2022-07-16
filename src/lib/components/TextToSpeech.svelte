@@ -14,7 +14,16 @@
 	let loading = false;
 	let errorMessage = '';
 
-	$: if (lang) source = '';
+	$: if (lang) {
+		source = '';
+		if (media === 'audio') {
+			loading = true;
+		}
+	}
+
+	$: if (source && media === 'audio') {
+		loading = false;
+	}
 
 	async function converTextToSpeech() {
 		if (loading) return;

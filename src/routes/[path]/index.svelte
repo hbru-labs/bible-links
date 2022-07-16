@@ -27,7 +27,9 @@
 	export let media: Media;
 
 	let source = '';
-	$page.stuff.audioSourcePromise.then((r) => (source = r));
+	$: if (currentLanguage && media === 'audio') {
+		$page.stuff.audioSourcePromise.then((r) => (source = r)).catch(() => (source = ''));
+	}
 </script>
 
 <div class="block-container py-0">
