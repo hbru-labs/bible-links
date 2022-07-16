@@ -7,11 +7,13 @@ Sentry.init({
 	// Set tracesSampleRate to 1.0 to capture 100%
 	// of transactions for performance monitoring.
 	// We recommend adjusting this value in production
-	tracesSampleRate: 1.0
+	tracesSampleRate: 1.0,
+	integrations: [],
+	debug: true
 });
 
 export const transaction = Sentry.startTransaction({
 	op: 'test',
-	name: 'My First Test Transaction'
+	name: 'Sentry Node Transaction'
 });
-export const captureException = Sentry.captureException(e);
+export const captureException = Sentry.captureException;
