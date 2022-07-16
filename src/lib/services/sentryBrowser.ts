@@ -8,4 +8,8 @@ Sentry.init({
 	debug: true
 });
 
+Sentry.setContext('sentry-browser', {
+	date: new Date()
+});
+
 export const captureException = Sentry.captureException;

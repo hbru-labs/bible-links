@@ -2,6 +2,7 @@ import textToSpeech from '$lib/services/textToSpeech';
 import logger from '$lib/utils/logger';
 import type { RequestHandler } from '@sveltejs/kit';
 import { TextToSpeechLanguages } from '$lib/utils/constants';
+import { captureException, transaction } from '$lib/services/sentryNode';
 
 export const post: RequestHandler = async function ({ request }) {
 	const { text, lang } = await request.json();
@@ -41,6 +42,14 @@ export const post: RequestHandler = async function ({ request }) {
 			body: { data: response }
 		};
 	}
+
+	captureException(response.error, {
+		extra: {
+			endpoint: true,
+			filename: 'text-to-speech'
+		}
+	});
+	transaction.finish();
 
 	return {
 		status: 500,
