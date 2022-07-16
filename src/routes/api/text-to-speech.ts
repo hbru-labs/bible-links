@@ -2,7 +2,7 @@ import textToSpeech from '$lib/services/textToSpeech';
 import logger from '$lib/utils/logger';
 import type { RequestHandler } from '@sveltejs/kit';
 import { TextToSpeechLanguages } from '$lib/utils/constants';
-import { captureException, transaction } from '$lib/services/sentryNode';
+import { captureException } from '$lib/services/sentryNode';
 
 export const post: RequestHandler = async function ({ request }) {
 	const { text, lang } = await request.json();
@@ -37,7 +37,6 @@ export const post: RequestHandler = async function ({ request }) {
 				filename: 'text-to-speech.ts'
 			}
 		});
-		transaction.finish();
 
 		return { error: e };
 	});

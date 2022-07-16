@@ -10,9 +10,4 @@ Sentry.setContext('sentry-node', {
 	date: new Date()
 });
 
-export const transaction = Sentry.startTransaction({
-	op: 'svelte-kit-server',
-	name: 'Sentry Node Transaction'
-});
-
 export const captureException = Sentry.captureException;
