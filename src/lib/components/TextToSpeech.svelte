@@ -3,12 +3,14 @@
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import Spinner from './Spinner.svelte';
+	import Snackbar from './Snackbar.svelte';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
 	export let source: string = '';
 
 	let loading = false;
+	let errorMessage = '';
 
 	$: if (lang) source = '';
 
@@ -17,17 +19,30 @@
 		loading = true;
 
 		const URI = `${$page.url.origin}/api/text-to-speech`;
-		const result = await fetch(URI, {
+		await fetch(URI, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ text, lang })
 		})
-			.then((r) => r.json())
-			.catch(() => '');
+			.then((r) => {
+				const json = r.json();
+				if (r.ok) return json;
 
-		source = result.data;
+				throw json;
+			})
+			.then((r) => (source = r.data))
+			.catch(async (e) => {
+				const error = (await e).error;
+				errorMessage =
+					typeof error === 'string'
+						? error
+						: error?.message
+						? error.message
+						: 'Something went wrong';
+			});
+
 		loading = false;
 	}
 </script>
@@ -57,3 +72,9 @@
 		</div>
 	{/key}
 </text-to-speech>
+
+<Snackbar
+	text={errorMessage}
+	show={!!errorMessage.length}
+	on:dismissed={() => (errorMessage = '')}
+/>
