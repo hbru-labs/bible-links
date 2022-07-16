@@ -40,20 +40,24 @@
 			<MediaRenderer {currentLanguage} {currentTranslation} />
 		{/if}
 
-		{#if isTranslationLang(currentLanguage) && (media === 'audio' || media === 'both')}
+		{#if media === 'audio' || media === 'both'}
 			<MediaRenderer
 				{currentLanguage}
 				{currentTranslation}
 				hideHeader={media === 'both'}
 				hideFooter={media === 'both'}
 			>
-				<TextToSpeech
-					slot="content"
-					text={$page.stuff.meta.text}
-					lang={currentLanguage}
-					{media}
-					{source}
-				/>
+				<div slot="content" class="block">
+					{#if isTranslationLang(currentLanguage)}
+						<TextToSpeech text={$page.stuff.meta.text} lang={currentLanguage} {media} {source} />
+					{:else}
+						<span
+							class="flex justify-center items-center text-md font-semibold my-2 py-3 rounded-full bg-zinc-100"
+						>
+							Not currently supported
+						</span>
+					{/if}
+				</div>
 			</MediaRenderer>
 		{/if}
 	</div>
