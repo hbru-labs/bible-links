@@ -13,10 +13,10 @@
 		}
 
 		const media = url.searchParams.get('media') as Media;
+		const lang = url.searchParams.get('language');
 		let audioSourcePromise = Promise.resolve('');
 
-		if (media === 'audio') {
-			const lang = url.searchParams.get('language');
+		if (media === 'audio' && meta.text) {
 			audioSourcePromise = fetch(`${url.origin}/api/text-to-speech`, {
 				method: 'POST',
 				headers: {
