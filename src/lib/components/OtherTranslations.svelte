@@ -1,40 +1,7 @@
-<script lang="ts" context="module">
-	const otherTranslations = Object.entries({
-		almeida: 'João Ferreira de Almeida',
-		bbe: 'Bible in Basic English',
-		kjv: 'King James Version',
-		'oeb-us': 'Open English Bible (US Edition)',
-		'oeb-cw': 'Open English Bible (Commonwealth Edition)',
-		rccv: 'Romanian Corrected Cornilescu Version',
-		web: 'World English Bible',
-		webbe: 'World English Bible (British Edition)'
-	});
-
-	const seeOtherTranslationsLabel = {
-		en: 'See other translations',
-		es: 'Ver otras traducciones',
-		fr: 'Voir les autres traductions',
-		de: 'Siehe andere Übersetzungen',
-		it: 'Vedi altre traduzioni',
-		ja: 'その他の翻訳を見る',
-		ko: '다른 번역을 보십시오',
-		nl: 'Bekijk andere vertalingen',
-		pt: 'Veja outras traduções',
-		zh: '查看其他翻译',
-		ru: 'Смотреть другие переводы',
-		af: 'Sien ander vertalings',
-		ig: 'Hụ ntụgharị asụsụ ndị ọzọ',
-		yo: 'Wo awọn itumọ miiran',
-		zu: 'Bona ezinye izinguqulo',
-		ur: 'دیگر تراجم دیکھیں',
-		he: 'ראה תרגומים אחרים',
-		hi: 'अन्य अनुवाद देखें'
-	};
-</script>
-
 <script lang="ts">
 	import { page } from '$app/stores';
 	import type { TargetLanguageCodeType } from '$lib/utils/types';
+	import { otherTranslations, seeOtherTranslationsLabel } from '$lib/utils/constants';
 
 	export let currentTranslation: string;
 	export let lang: TargetLanguageCodeType = 'en';

@@ -19,6 +19,9 @@
 	import OtherTranslations from '$lib/components/OtherTranslations.svelte';
 	import Select from '$lib/components/Select.svelte';
 	import { TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
+	import { truncate } from '$lib/utils/truncate';
+	import TextToSpeech from '$lib/components/TextToSpeech.svelte';
+	import { isTranslationLang } from '$lib/utils/typeGuards';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
@@ -36,27 +39,40 @@
 	}
 </script>
 
-<div class="block-container py-0 px-2.5">
-	<div class="block mx-auto max-w-[420px] w-auto p-5 rounded-lg mt-20 ring ring-zinc-200">
-		<p class="font-bold underline mb-2 relative">
-			{$page.stuff.meta.reference}:
-			<span class="translation_name lowercase font-normal">
-				{$page.stuff.meta.translation_name}
-			</span>
+<div class="block-container py-0">
+	<div
+		class="wrapper-container block mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 overflow-x-hidden overflow-y-scroll"
+	>
+		<div class="border-container">
+			<p class="font-bold underline mb-2 relative">
+				{$page.stuff.meta.reference}:
+				<span
+					class="translation_name lowercase font-normal"
+					title={$page.stuff.meta.translation_name}
+				>
+					{truncate($page.stuff.meta.translation_name, 22)}
+				</span>
 
-			<span class="absolute right-0">
-				<Select options={translateOptions} on:change={onchange} value={currentLanguage}>
-					<div slot="label" />
-				</Select>
-			</span>
-		</p>
-		<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
-			<div class="text-20 bible-text">
-				{$page.stuff.meta.text}
+				<span class="absolute right-0">
+					<Select options={translateOptions} on:change={onchange} value={currentLanguage}>
+						<div slot="label" />
+					</Select>
+				</span>
+			</p>
+			<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
+				<div class="text-20 bible-text">
+					{$page.stuff.meta.text}
+				</div>
 			</div>
+
+			<OtherTranslations {currentTranslation} lang={currentLanguage} />
 		</div>
 
-		<OtherTranslations {currentTranslation} lang={currentLanguage} />
+		{#if isTranslationLang(currentLanguage)}
+			<div class="border-container">
+				<TextToSpeech text={$page.stuff.meta.text} lang={currentLanguage} />
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -65,5 +81,18 @@
 		text-transform: uppercase;
 		font-size: 1.5em;
 		font-weight: bold;
+	}
+
+	.border-container {
+		@apply block w-full p-5 rounded-lg mt-20 ring ring-zinc-200;
+	}
+
+	.wrapper-container::-webkit-scrollbar {
+		display: none;
+	}
+
+	.wrapper-container {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
 	}
 </style>

@@ -1,7 +1,9 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
 import type { TargetLanguageCodeType } from '../utils/types';
+import { PROJECT_ID } from '../utils/constants';
+import safeParseJSON from '../utils/safeParseJSON';
 
-const projectId = 'bible-links-x01';
+const projectId = PROJECT_ID;
 const location = 'global';
 
 export type ITranslation = {
@@ -9,14 +11,6 @@ export type ITranslation = {
 	model: string;
 	glossaryConfig: null;
 	detectedLanguageCode: TargetLanguageCodeType;
-};
-
-const safeParseJSON = (text: string) => {
-	try {
-		return JSON.parse(text);
-	} catch (error) {
-		return text;
-	}
 };
 
 // Instantiates a client
