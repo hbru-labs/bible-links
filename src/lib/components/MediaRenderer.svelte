@@ -59,6 +59,12 @@
 </div>
 
 <style>
+	.bible-text:first-letter {
+		text-transform: uppercase;
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+
 	.border-container {
 		@apply block w-full p-5 rounded-lg mt-20 ring ring-zinc-200;
 	}

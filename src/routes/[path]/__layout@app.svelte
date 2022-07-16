@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
+	import type { JSON_DATA, Media } from '$lib/utils/types';
 
 	export const load: Load = async ({ fetch, url, params }) => {
 		const meta = await fetch(`/api/data.json`, {
@@ -11,12 +12,33 @@
 			throw new Error(meta.error);
 		}
 
-		return { props: { meta }, stuff: { meta } };
+		const media = url.searchParams.get('media') as Media;
+		let audioSourcePromise = Promise.resolve('');
+
+		if (media === 'audio') {
+			const lang = url.searchParams.get('language');
+			audioSourcePromise = fetch(`${url.origin}/api/text-to-speech`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ text: meta.text, lang })
+			})
+				.then((r) => r.json())
+				.then((r) => r.data);
+		}
+
+		return {
+			props: { meta },
+			stuff: {
+				meta,
+				audioSourcePromise
+			}
+		};
 	};
 </script>
 
 <script lang="ts">
-	import type { JSON_DATA } from '$lib/utils/types';
 	import { page } from '$app/stores';
 
 	export let meta: JSON_DATA;

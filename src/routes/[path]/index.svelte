@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
-	import { updateQueryParams } from '$lib/utils/urlly';
 
 	export const load: Load = async ({ url }) => {
 		const translation = url.searchParams.get('translation');
@@ -26,6 +25,9 @@
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
 	export let media: Media;
+
+	let source = '';
+	$page.stuff.audioSourcePromise.then((r) => (source = r));
 </script>
 
 <div class="block-container py-0">
@@ -43,23 +45,19 @@
 				hideHeader={media === 'both'}
 				hideFooter={media === 'both'}
 			>
-				<TextToSpeech slot="content" text={$page.stuff.meta.text} lang={currentLanguage} {media} />
+				<TextToSpeech
+					slot="content"
+					text={$page.stuff.meta.text}
+					lang={currentLanguage}
+					{media}
+					{source}
+				/>
 			</MediaRenderer>
 		{/if}
 	</div>
 </div>
 
 <style>
-	.bible-text:first-letter {
-		text-transform: uppercase;
-		font-size: 1.5em;
-		font-weight: bold;
-	}
-
-	.border-container {
-		@apply block w-full p-5 rounded-lg mt-20 ring ring-zinc-200;
-	}
-
 	.wrapper-container::-webkit-scrollbar {
 		display: none;
 	}
