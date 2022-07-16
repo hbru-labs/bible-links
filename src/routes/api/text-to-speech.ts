@@ -17,6 +17,17 @@ export const post: RequestHandler = async function ({ request }) {
 		};
 	}
 
+	if (text.length > 500) {
+		return {
+			status: 400,
+			body: {
+				error: {
+					message: 'Text is too long: must be less than 500 characters'
+				}
+			}
+		};
+	}
+
 	const response = await textToSpeech(text, lang).catch((e) => {
 		logger.error('E: textToSpeech', e);
 		return { error: e };

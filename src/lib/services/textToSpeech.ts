@@ -37,7 +37,5 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 		audioConfig: { audioEncoding: 'MP3' }
 	});
 
-	const result = await saveSpeechAudio(filePath, response.audioContent);
-
-	return result;
+	return saveSpeechAudio(filePath, response.audioContent);
 }
