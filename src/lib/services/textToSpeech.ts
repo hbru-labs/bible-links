@@ -2,7 +2,6 @@ import { TextToSpeechLanguages } from '../utils/constants';
 import crypto from 'node:crypto';
 import saveSpeechAudio from './helpers/saveSpeechAudio';
 import getSpeechAudio from './helpers/getSpeechAudio';
-import { captureException } from './sentryNode';
 import got from 'got';
 
 type SpeechLanguages = keyof typeof TextToSpeechLanguages;
@@ -41,13 +40,6 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 		.catch((err) => ({ error: err }));
 
 	if (hasError(result)) {
-		captureException(result.error, {
-			extra: {
-				endpoint: false,
-				service: true,
-				filename: 'textToSpeech.ts'
-			}
-		});
 		throw new Error(result.error);
 	}
 
