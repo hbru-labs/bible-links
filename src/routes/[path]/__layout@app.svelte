@@ -27,7 +27,11 @@
 				},
 				body: JSON.stringify({ text: meta.text, lang: language })
 			})
-				.then((r) => r.json())
+				.then((r) => {
+					const json = r.json();
+					if (r.ok) return json;
+					throw json;
+				})
 				.then((r) => r.data);
 		}
 

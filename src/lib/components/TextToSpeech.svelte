@@ -43,8 +43,15 @@
 	$: if (media === 'audio') {
 		$page.stuff.audioSourcePromise
 			.then((r) => (source = r))
-			.catch(() => (source = ''))
+			.catch((err) => {
+				source = '';
+				resolveError(err);
+			})
 			.finally(() => (loading = false));
+	}
+
+	async function resolveError(err: any) {
+		errorMessage = extractError(await err);
 	}
 
 	async function converTextToSpeech() {
@@ -66,9 +73,7 @@
 				throw json;
 			})
 			.then((r) => (source = r.data))
-			.catch(async (err) => {
-				errorMessage = extractError(await err);
-			});
+			.catch((e) => resolveError(e));
 
 		loading = false;
 	}
