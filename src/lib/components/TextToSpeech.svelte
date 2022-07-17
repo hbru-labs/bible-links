@@ -6,7 +6,7 @@
 			? error
 			: error?.message
 			? error.message
-			: error
+			: Object.keys(error).length
 			? JSON.stringify(error)
 			: 'Something went wrong';
 	};
