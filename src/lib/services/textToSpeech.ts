@@ -6,7 +6,7 @@ import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { PROJECT_ID, TextToSpeechLanguages } from '../utils/constants';
 import safeParseJSON from '../utils/safeParseJSON';
 import crypto from 'node:crypto';
-// import saveSpeechAudio from './helpers/saveSpeechAudio';
+import saveSpeechAudio from './helpers/saveSpeechAudio';
 import getSpeechAudio from './helpers/getSpeechAudio';
 import { captureException } from './sentryNode';
 
@@ -42,7 +42,7 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 			// select the type of audio encoding
 			audioConfig: { audioEncoding: 'MP3' }
 		});
-		return response; //saveSpeechAudio(filePath, response.audioContent);
+		return saveSpeechAudio(filePath, response.audioContent);
 	} catch (error) {
 		captureException(error, {
 			extra: {
