@@ -1,25 +1,15 @@
-import AbortController from 'node-abort-controller';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-global.AbortController = AbortController;
-import { TextToSpeechClient } from '@google-cloud/text-to-speech';
-import { PROJECT_ID, TextToSpeechLanguages } from '../utils/constants';
-import safeParseJSON from '../utils/safeParseJSON';
+import { TextToSpeechLanguages } from '../utils/constants';
 import crypto from 'node:crypto';
 import saveSpeechAudio from './helpers/saveSpeechAudio';
 import getSpeechAudio from './helpers/getSpeechAudio';
 import { captureException } from './sentryNode';
+import got from 'got';
 
 type SpeechLanguages = keyof typeof TextToSpeechLanguages;
 
-// https://cloud.google.com/text-to-speech/docs/libraries
-const client = new TextToSpeechClient({
-	projectId: PROJECT_ID,
-	credentials: {
-		client_email: process.env.GOOGLE_CLIENT_EMAIL,
-		private_key: safeParseJSON(process.env.GOOGLE_PRIVATE_KEY)
-	}
-});
+function hasError(r: any): r is { error: any } {
+	return r.error !== undefined;
+}
 
 export default async function textToSpeech(text: string, lang: SpeechLanguages) {
 	const languageCode = TextToSpeechLanguages[lang];
@@ -34,23 +24,32 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 	if (existingResult) return existingResult;
 
 	// Performs the text-to-speech request
-	try {
-		const [response] = await client.synthesizeSpeech({
+	// send a post request to google text to speech api
+	const result = await got('https://texttospeech.googleapis.com/v1/text:synthesize', {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${process.env.GOOGLE_ADC}`,
+			'Content-Type': 'application/json; charset=utf-8'
+		},
+		json: {
 			input: { text },
-			// Select the language and SSML voice gender (optional)
 			voice: { languageCode, ssmlGender: 'NEUTRAL' },
-			// select the type of audio encoding
 			audioConfig: { audioEncoding: 'MP3' }
-		});
-		return saveSpeechAudio(filePath, response.audioContent);
-	} catch (error) {
-		captureException(error, {
+		}
+	})
+		.json<{ audioContent: string }>()
+		.catch((err) => ({ error: err }));
+
+	if (hasError(result)) {
+		captureException(result.error, {
 			extra: {
 				endpoint: false,
+				service: true,
 				filename: 'textToSpeech.ts'
 			}
 		});
-
-		return JSON.stringify(error);
+		throw new Error(result.error);
 	}
+
+	return saveSpeechAudio(filePath, Buffer.from(result.audioContent, 'base64'));
 }

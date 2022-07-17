@@ -10,5 +10,8 @@ declare namespace NodeJS {
 		ES_CLOUD_ID: string;
 		ES_USERNAME: string;
 		ES_PASSWORD: string;
+		GOOGLE_CLIENT_EMAIL: string;
+		GOOGLE_PRIVATE_KEY: string;
+		GOOGLE_ADC: string;
 	}
 }
