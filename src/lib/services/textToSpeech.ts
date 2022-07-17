@@ -4,6 +4,7 @@ import safeParseJSON from '../utils/safeParseJSON';
 import crypto from 'node:crypto';
 // import saveSpeechAudio from './helpers/saveSpeechAudio';
 import getSpeechAudio from './helpers/getSpeechAudio';
+import { captureException } from './sentryNode';
 
 type SpeechLanguages = keyof typeof TextToSpeechLanguages;
 
@@ -28,16 +29,24 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 	const existingResult = await getSpeechAudio(filePath);
 	if (existingResult) return existingResult;
 
-	// // Performs the text-to-speech request
-	const [response] = await client
-		.synthesizeSpeech({
+	// Performs the text-to-speech request
+	try {
+		const [response] = await client.synthesizeSpeech({
 			input: { text },
 			// Select the language and SSML voice gender (optional)
 			voice: { languageCode, ssmlGender: 'NEUTRAL' },
 			// select the type of audio encoding
 			audioConfig: { audioEncoding: 'MP3' }
-		})
-		.catch((e) => [JSON.stringify(e)]);
+		});
+		return response; //saveSpeechAudio(filePath, response.audioContent);
+	} catch (error) {
+		captureException(error, {
+			extra: {
+				endpoint: false,
+				filename: 'textToSpeech.ts'
+			}
+		});
 
-	return response; //saveSpeechAudio(filePath, response.audioContent);
+		return JSON.stringify(error);
+	}
 }
