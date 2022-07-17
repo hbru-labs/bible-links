@@ -25,11 +25,6 @@
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
 	export let media: Media;
-
-	let source = '';
-	$: if (currentLanguage && media === 'audio') {
-		$page.stuff.audioSourcePromise.then((r) => (source = r)).catch(() => (source = ''));
-	}
 </script>
 
 <div class="block-container py-0">
@@ -49,7 +44,12 @@
 			>
 				<div slot="content" class="block">
 					{#if isTranslationLang(currentLanguage)}
-						<TextToSpeech text={$page.stuff.meta.text} lang={currentLanguage} {media} {source} />
+						<TextToSpeech
+							text={$page.stuff.meta.text}
+							lang={currentLanguage}
+							{media}
+							translation={currentTranslation}
+						/>
 					{:else}
 						<span
 							class="flex justify-center items-center text-md font-semibold my-2 py-3 rounded-full bg-zinc-100"

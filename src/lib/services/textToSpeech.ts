@@ -1,20 +1,19 @@
-import { TextToSpeechClient } from '@google-cloud/text-to-speech';
-import { PROJECT_ID, TextToSpeechLanguages } from '../utils/constants';
-import safeParseJSON from '../utils/safeParseJSON';
+import { TextToSpeechLanguages } from '../utils/constants';
 import crypto from 'node:crypto';
 import saveSpeechAudio from './helpers/saveSpeechAudio';
 import getSpeechAudio from './helpers/getSpeechAudio';
+import { google } from 'googleapis';
 
 type SpeechLanguages = keyof typeof TextToSpeechLanguages;
 
-// https://cloud.google.com/text-to-speech/docs/libraries
-const client = new TextToSpeechClient({
-	projectId: PROJECT_ID,
-	credentials: {
-		client_email: process.env.GOOGLE_CLIENT_EMAIL,
-		private_key: safeParseJSON(process.env.GOOGLE_PRIVATE_KEY)
-	}
+const googleTextToSpeech = google.texttospeech({
+	version: 'v1',
+	auth: process.env.GOOGLE_API_KEY
 });
+
+function hasError(r: any): r is { error: unknown } {
+	return r.error !== undefined;
+}
 
 export default async function textToSpeech(text: string, lang: SpeechLanguages) {
 	const languageCode = TextToSpeechLanguages[lang];
@@ -29,13 +28,19 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 	if (existingResult) return existingResult;
 
 	// Performs the text-to-speech request
-	const [response] = await client.synthesizeSpeech({
-		input: { text },
-		// Select the language and SSML voice gender (optional)
-		voice: { languageCode, ssmlGender: 'NEUTRAL' },
-		// select the type of audio encoding
-		audioConfig: { audioEncoding: 'MP3' }
-	});
+	const result = await googleTextToSpeech.text
+		.synthesize({
+			requestBody: {
+				input: { text },
+				voice: { languageCode, ssmlGender: 'NEUTRAL' },
+				audioConfig: { audioEncoding: 'MP3' }
+			}
+		})
+		.then((r) => r.data)
+		.catch((err) => ({ error: err }));
 
-	return saveSpeechAudio(filePath, response.audioContent);
+	if (hasError(result)) {
+		throw new Error(result.error);
+	}
+	return saveSpeechAudio(filePath, Buffer.from(result.audioContent, 'base64'));
 }

@@ -2,6 +2,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import type { Redis } from '@upstash/redis';
 import { type JSON_DATA, TargetLanguageCode, type TargetLanguageCodeType } from '$lib/utils/types';
 import translate from '$lib/services/translate';
+import got from 'got';
 
 const BASE_URL = 'https://bible-api.com';
 const headers = {
@@ -16,14 +17,9 @@ async function getTranslation(text: string, lang: TargetLanguageCodeType) {
 
 export const post: RequestHandler = async ({ request }) => {
 	const req = await request.json();
-	const paramsHash = String(req.query)
-		.slice(1)
-		.split('&')
-		.map((k) => k.split('='))
-		.reduce((acc, cur) => ({ ...acc, [cur[0]]: cur[1] }), {});
+	const tr = req['translation'];
+	const lang = req['language'];
 
-	const tr = paramsHash['translation'];
-	const lang = paramsHash['language'];
 	const englishLang = TargetLanguageCode.en === lang;
 
 	const key = `${req.pathname}-${tr || ''}`;
@@ -52,7 +48,7 @@ export const post: RequestHandler = async ({ request }) => {
 	}
 
 	const url = `${BASE_URL}/${req.pathname}?translation=${tr}`;
-	const result = await fetch(url).then((r) => r.json());
+	const result = await got(url).json<any>();
 	// cache the result
 	if (result.text) {
 		await redisClient?.set(key, JSON.stringify(result));

@@ -10,8 +10,11 @@
 
 	function constructHref(tr: string) {
 		let query = `translation=${tr}`;
+
 		const language = $page.url.searchParams.get('language');
+		const media = $page.url.searchParams.get('media');
 		if (language) query += `&language=${language}`;
+		if (media) query += `&media=${media}`;
 
 		return `${$page.url.origin}/${$page.params.path}?${query}`;
 	}

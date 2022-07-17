@@ -1,6 +1,6 @@
 {
   "name": "bible-links",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "tailwind:compile": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css",
     "tailwind:compile:watch": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css --watch",
@@ -18,8 +18,8 @@
   "devDependencies": {
     "@playwright/test": "^1.20.0",
     "@sveltejs/adapter-node": "1.0.0-next.73",
-    "@sveltejs/adapter-vercel": "1.0.0-next.60",
-    "@sveltejs/kit": "1.0.0-next.370",
+    "@sveltejs/adapter-vercel": "1.0.0-next.63",
+    "@sveltejs/kit": "1.0.0-next.372",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "autoprefixer": "^10.4.7",
@@ -50,6 +50,7 @@
     "@upstash/redis": "^1.3.5",
     "dayjs": "^1.11.3",
     "dotenv": "^16.0.1",
+    "googleapis": "^105.0.0",
     "got": "^12.1.0",
     "openai": "^3.0.0"
   }

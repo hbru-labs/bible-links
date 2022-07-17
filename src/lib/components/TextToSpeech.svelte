@@ -6,10 +6,8 @@
 			? error
 			: error?.message
 			? error.message
-			: error
+			: Object.keys(error).length
 			? JSON.stringify(error)
-			: errorData
-			? JSON.stringify(errorData)
 			: 'Something went wrong';
 	};
 </script>
@@ -21,17 +19,17 @@
 	import Spinner from './Spinner.svelte';
 	import Snackbar from './Snackbar.svelte';
 	import type { Media } from '$lib/utils/types';
-	import { captureException } from '$lib/services/sentryBrowser';
 
 	export let text: string;
 	export let lang: keyof typeof TextToSpeechLanguages;
 	export let source: string = '';
 	export let media: Media;
+	export let translation: string;
 
 	let loading = false;
 	let errorMessage = '';
 
-	$: if (lang) {
+	$: if (lang || translation) {
 		source = '';
 		if (media === 'audio') {
 			loading = true;
@@ -40,6 +38,20 @@
 
 	$: if (source && media === 'audio') {
 		loading = false;
+	}
+
+	$: if (media === 'audio') {
+		$page.stuff.audioSourcePromise
+			.then((r) => (source = r))
+			.catch((err) => {
+				source = '';
+				resolveError(err);
+			})
+			.finally(() => (loading = false));
+	}
+
+	async function resolveError(err: any) {
+		errorMessage = extractError(await err);
 	}
 
 	async function converTextToSpeech() {
@@ -61,25 +73,17 @@
 				throw json;
 			})
 			.then((r) => (source = r.data))
-			.catch(async (err) => {
-				errorMessage = extractError(await err);
-				captureException(errorMessage, {
-					extra: {
-						endpoint: false,
-						filename: 'textTospeech.svelte'
-					}
-				});
-			});
+			.catch((e) => resolveError(e));
 
 		loading = false;
 	}
 </script>
 
 <text-to-speech>
-	{#key lang}
+	{#key lang || translation}
 		<div class="flex flex-col items-center">
 			{#if source}
-				<audio controls class="my-2" transition:fade|local>
+				<audio controls class="my-2" in:fade|local>
 					<source src={source} type="audio/mpeg" />
 					Your browser does not support the audio element.
 				</audio>
