@@ -1,6 +1,6 @@
 {
   "name": "bible-links",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "tailwind:compile": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css",
     "tailwind:compile:watch": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css --watch",
