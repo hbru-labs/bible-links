@@ -29,13 +29,15 @@ export default async function textToSpeech(text: string, lang: SpeechLanguages) 
 	if (existingResult) return existingResult;
 
 	// // Performs the text-to-speech request
-	// const [response] = await client.synthesizeSpeech({
-	// 	input: { text },
-	// 	// Select the language and SSML voice gender (optional)
-	// 	voice: { languageCode, ssmlGender: 'NEUTRAL' },
-	// 	// select the type of audio encoding
-	// 	audioConfig: { audioEncoding: 'MP3' }
-	// });
+	const [response] = await client
+		.synthesizeSpeech({
+			input: { text },
+			// Select the language and SSML voice gender (optional)
+			voice: { languageCode, ssmlGender: 'NEUTRAL' },
+			// select the type of audio encoding
+			audioConfig: { audioEncoding: 'MP3' }
+		})
+		.catch((e) => [JSON.stringify(e)]);
 
-	return "" //saveSpeechAudio(filePath, response.audioContent);
+	return response; //saveSpeechAudio(filePath, response.audioContent);
 }
