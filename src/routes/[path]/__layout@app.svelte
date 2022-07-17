@@ -1,19 +1,22 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
 	import type { JSON_DATA, Media } from '$lib/utils/types';
+	import safeGetQS from '$lib/utils/safeGetParams';
 
 	export const load: Load = async ({ fetch, url, params }) => {
+		const language = safeGetQS(url.searchParams, 'language');
+		const translation = safeGetQS(url.searchParams, 'translation');
+		const media = safeGetQS(url.searchParams, 'media') as Media;
+
 		const meta = await fetch(`/api/data.json`, {
 			method: 'POST',
-			body: JSON.stringify({ pathname: params.path, query: url.search })
+			body: JSON.stringify({ pathname: params.path, language, translation })
 		}).then((r) => r.json());
 
 		if (meta.error) {
 			throw new Error(meta.error);
 		}
 
-		const media = url.searchParams.get('media') as Media;
-		const lang = url.searchParams.get('language');
 		let audioSourcePromise = Promise.resolve('');
 
 		if (media === 'audio' && meta.text) {
@@ -22,7 +25,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ text: meta.text, lang })
+				body: JSON.stringify({ text: meta.text, lang: language })
 			})
 				.then((r) => r.json())
 				.then((r) => r.data);
