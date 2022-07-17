@@ -13,5 +13,6 @@ declare namespace NodeJS {
 		GOOGLE_CLIENT_EMAIL: string;
 		GOOGLE_PRIVATE_KEY: string;
 		GOOGLE_ADC: string;
+		GOOGLE_API_KEY: string
 	}
 }
