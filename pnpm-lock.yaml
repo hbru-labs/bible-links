@@ -23,6 +23,7 @@ specifiers:
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^3.2.1
   got: ^12.1.0
+  node-abort-controller: ^3.0.1
   openai: ^3.0.0
   postcss: ^8.4.14
   prettier: ^2.7.1
@@ -48,6 +49,7 @@ dependencies:
   dayjs: 1.11.3
   dotenv: 16.0.1
   got: 12.1.0
+  node-abort-controller: 3.0.1
   openai: 3.0.0
 
 devDependencies:
@@ -3155,6 +3157,10 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
+
+  /node-abort-controller/3.0.1:
+    resolution: {integrity: sha512-/ujIVxthRs+7q6hsdjHMaj8hRG9NuWmwrz+JdRwZ14jdFoKSkm+vDsCbF9PLpnSqjaWQJuTmVtcWHNLr+vrOFw==}
+    dev: false
 
   /node-fetch/2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}

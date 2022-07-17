@@ -1,3 +1,7 @@
+import AbortController from 'node-abort-controller';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+global.AbortController = AbortController;
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { PROJECT_ID, TextToSpeechLanguages } from '../utils/constants';
 import safeParseJSON from '../utils/safeParseJSON';
