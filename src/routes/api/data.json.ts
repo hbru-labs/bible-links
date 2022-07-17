@@ -48,7 +48,7 @@ export const post: RequestHandler = async ({ request }) => {
 	}
 
 	const url = `${BASE_URL}/${req.pathname}?translation=${tr}`;
-	const result = await got(url).json<any>(); //((r) => r.json());
+	const result = await got(url).json<any>();
 	// cache the result
 	if (result.text) {
 		await redisClient?.set(key, JSON.stringify(result));
