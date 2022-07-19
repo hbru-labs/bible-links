@@ -25,14 +25,19 @@
 <script lang="ts">
 	import SearchBar from '$lib/components/SearchBar.svelte';
 	import ListItem from '$lib/components/ListItem.svelte';
-	import Button from '$lib/components/Button.svelte';
 	import type { ESResponse } from '$lib/utils/types';
 	import { goto } from '$app/navigation';
+	import IconButton from '$lib/components/IconButton.svelte';
+	import Spinner from '$lib/components/Spinner.svelte';
 
 	export let searchTerm = '';
 	export let searchResult: ESResponse[];
 
+	let loading = false;
+
 	function navigateToSearch() {
+		loading = true;
+		searchResult = [];
 		goto('/search?q=' + encodeURIComponent(searchTerm));
 	}
 
@@ -46,10 +51,10 @@
 
 <div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-20 sm:pt-6">
 	<div class="block mb-4">
-		<div class="flex flex-col space-y-3 items-center">
-			<SearchBar bind:searchTerm on:keypress={navigateToSearch} />
-			<div class="w-[140px]">
-				<Button on:click={navigateToSearch} disabled={!searchTerm} />
+		<div class="flex space-x-1 items-center">
+			<SearchBar showIcon={false} bind:searchTerm on:keypress={navigateToSearch} />
+			<div class="w-auto ml-1">
+				<IconButton on:click={navigateToSearch} disabled={!searchTerm} />
 			</div>
 		</div>
 	</div>
@@ -66,9 +71,13 @@
 					query={searchTerm}
 				/>
 			{:else}
-				<div class="text-gray-600">
-					No results found for "{searchTerm}"
-				</div>
+				{#if loading}
+					<Spinner />
+				{:else}
+					<div class="text-gray-600">
+						No results found for "{searchTerm}"
+					</div>
+				{/if}
 			{/each}
 		</div>
 	</div>
