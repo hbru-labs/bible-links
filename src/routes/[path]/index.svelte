@@ -30,7 +30,7 @@
 
 <div class="block-container py-0">
 	<div
-		class="wrapper-container flex flex-col space-y-2 mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 pt-20 overflow-x-hidden overflow-y-scroll"
+		class="wrapper-container flex flex-col space-y-2 mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 pt-8 overflow-x-hidden overflow-y-scroll"
 	>
 		<LanguageMedia {media} {currentLanguage} />
 		<div class="flex flex-col space-y-10 w-full">

@@ -28,15 +28,13 @@
 	$: mediaOptions = ['text', 'audio', 'both'].map((o) => ({ id: o, label: o }));
 </script>
 
-<language-media>
-	<div class="block w-full p-2">
-		<div class="flex justify-end items-center space-x-5 font-bold">
-			<Select options={translateOptions} on:change={onchangeLanguage} value={currentLanguage}>
-				<div slot="label" />
-			</Select>
-			<Select options={mediaOptions} on:change={onchangeMedia} value={media}>
-				<div slot="label" />
-			</Select>
-		</div>
+<language-media class="block w-3/5 self-end p-2">
+	<div class="w-auto flex justify-end items-center space-x-5 font-bold">
+		<Select options={translateOptions} on:change={onchangeLanguage} value={currentLanguage}>
+			<div slot="label" />
+		</Select>
+		<Select options={mediaOptions} on:change={onchangeMedia} value={media}>
+			<div slot="label" />
+		</Select>
 	</div>
 </language-media>
