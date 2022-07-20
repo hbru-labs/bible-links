@@ -20,7 +20,8 @@
 	import type { TargetLanguageCodeType, Media } from '$lib/utils/types';
 	import TextToSpeech from '$lib/components/TextToSpeech.svelte';
 	import { isTranslationLang } from '$lib/utils/typeGuards';
-	import MediaRenderer from '$lib/components/MediaRenderer.svelte';
+	import ContentRenderer from '$lib/components/ContentRenderer.svelte';
+	import LanguageMedia from '$lib/components/LanguageMedia.svelte';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
@@ -29,37 +30,40 @@
 
 <div class="block-container py-0">
 	<div
-		class="wrapper-container block mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 overflow-x-hidden overflow-y-scroll"
+		class="wrapper-container flex flex-col space-y-2 mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 pt-8 overflow-x-hidden overflow-y-scroll"
 	>
-		{#if media === 'text' || media === 'both'}
-			<MediaRenderer {currentLanguage} {currentTranslation} />
-		{/if}
+		<LanguageMedia {media} {currentLanguage} />
+		<div class="flex flex-col space-y-10 w-full">
+			{#if media === 'text' || media === 'both'}
+				<ContentRenderer {currentLanguage} {currentTranslation} />
+			{/if}
 
-		{#if media === 'audio' || media === 'both'}
-			<MediaRenderer
-				{currentLanguage}
-				{currentTranslation}
-				hideHeader={media === 'both'}
-				hideFooter={media === 'both'}
-			>
-				<div slot="content" class="block">
-					{#if isTranslationLang(currentLanguage)}
-						<TextToSpeech
-							text={$page.stuff.meta.text}
-							lang={currentLanguage}
-							{media}
-							translation={currentTranslation}
-						/>
-					{:else}
-						<span
-							class="flex justify-center items-center text-md font-semibold my-2 py-3 rounded-full bg-zinc-100"
-						>
-							Not currently supported
-						</span>
-					{/if}
-				</div>
-			</MediaRenderer>
-		{/if}
+			{#if media === 'audio' || media === 'both'}
+				<ContentRenderer
+					{currentLanguage}
+					{currentTranslation}
+					hideHeader={media === 'both'}
+					hideFooter={media === 'both'}
+				>
+					<div slot="content" class="block">
+						{#if isTranslationLang(currentLanguage)}
+							<TextToSpeech
+								text={$page.stuff.meta.text}
+								lang={currentLanguage}
+								{media}
+								translation={currentTranslation}
+							/>
+						{:else}
+							<span
+								class="flex justify-center items-center text-md font-semibold my-2 py-3 rounded-full bg-zinc-100"
+							>
+								Not currently supported
+							</span>
+						{/if}
+					</div>
+				</ContentRenderer>
+			{/if}
+		</div>
 	</div>
 </div>
 
