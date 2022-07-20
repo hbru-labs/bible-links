@@ -20,10 +20,10 @@
 	}
 </script>
 
-<other-translations>
+<other-translations class="block mt-5">
 	{#key $page.url.search}
-		<p>{seeOtherTranslationsLabel[lang]}:</p>
-		<div class="other-links">
+		<p class="mb-0.5 p-0 font-normal text-sm">{seeOtherTranslationsLabel[lang]}:</p>
+		<div class="flex flex-wrap gap-[5px] text-[13px]">
 			{#each translationsEntries as [tr, title] (tr)}
 				{@const href = constructHref(tr)}
 
@@ -34,23 +34,6 @@
 </other-translations>
 
 <style>
-	other-translations {
-		display: block;
-		margin-top: 20px;
-	}
-	other-translations p {
-		margin-bottom: 2px;
-		padding: 0;
-		font-weight: 400;
-		font-size: 14px;
-	}
-	.other-links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 5px;
-		font-size: 13px;
-	}
-
 	a:link {
 		color: blue;
 		text-decoration: underline;
