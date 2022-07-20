@@ -3,20 +3,20 @@
 
 	export const load: Load = async ({ url, fetch }) => {
 		const searchTerm = url.searchParams.get('q');
-		let searchResult: ESResponse[] = [];
+		let searchResultPromise: Promise<ESResponse[]> = Promise.resolve([]);
 
 		if (searchTerm) {
-			const response = await fetch(`/api/search?q=${searchTerm}`, {
+			searchResultPromise = fetch(`/api/search?q=${searchTerm}`, {
 				method: 'POST'
-			}).then((r) => r.json());
-
-			searchResult = JSON.parse(response.data);
+			})
+				.then((r) => r.json())
+				.then((r) => JSON.parse(r.data));
 		}
 
 		return {
 			props: {
 				searchTerm,
-				searchResult
+				searchResultPromise
 			}
 		};
 	};
@@ -29,16 +29,26 @@
 	import { goto } from '$app/navigation';
 	import IconButton from '$lib/components/IconButton.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
+	import { page } from '$app/stores';
 
 	export let searchTerm = '';
-	export let searchResult: ESResponse[];
+	export let searchResultPromise: Promise<ESResponse[]>;
 
 	let loading = false;
+	let searchResult: ESResponse[] = [];
 
 	function navigateToSearch() {
+		const query = $page.url.searchParams.get('q');
+		if (query === searchTerm) return;
+
 		loading = true;
 		searchResult = [];
 		goto('/search?q=' + encodeURIComponent(searchTerm));
+	}
+
+	$: if (searchResultPromise) {
+		loading = true;
+		searchResultPromise.then((r) => (searchResult = r)).finally(() => (loading = false));
 	}
 
 	$: noDuplicateSearchResult = Object.values(
