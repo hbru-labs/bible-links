@@ -36,7 +36,7 @@
 		}
 
 		return {
-			props: { meta },
+			props: { meta, media },
 			stuff: {
 				meta,
 				audioSourcePromise
@@ -49,6 +49,7 @@
 	import { page } from '$app/stores';
 
 	export let meta: JSON_DATA;
+	export let media: Media;
 
 	const title = `${meta.reference}: ${meta.translation_name}`;
 	const imgSrc =
@@ -69,6 +70,14 @@
 	<meta property="og:image:alt" content="${title}" />
 	<meta property="og:image:width" content="720" />
 	<meta property="og:image:height" content="540" />
+
+	{#if media === 'audio'}
+		{#await $page.stuff.audioSourcePromise then audioSource}
+			<meta property="og:audio" content={audioSource} />
+			<meta property="og:audio:secure_url" content={audioSource} />
+		{/await}
+		<meta property="og:audio:type" content="audio/mpeg" />
+	{/if}
 
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={meta.text} />
