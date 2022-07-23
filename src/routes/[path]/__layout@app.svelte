@@ -47,6 +47,7 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
+	import OpenGraph from '$lib/components/OpenGraph.svelte';
 
 	export let meta: JSON_DATA;
 	export let media: Media;
@@ -56,7 +57,7 @@
 		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649503686/bible-links/main_logo.png';
 </script>
 
-<svelte:head>
+<OpenGraph>
 	<title>{title}</title>
 	<meta name="description" content={meta.text} />
 
@@ -84,6 +85,6 @@
 	<meta property="twitter:image" content={imgSrc} />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@ChukwumaNwaugha" />
-</svelte:head>
+</OpenGraph>
 
 <slot />

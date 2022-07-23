@@ -30,6 +30,7 @@
 	import IconButton from '$lib/components/IconButton.svelte';
 	import Spinner from '$lib/components/Spinner.svelte';
 	import { page } from '$app/stores';
+	import OpenGraph from '$lib/components/OpenGraph.svelte';
 
 	export let searchTerm = '';
 	export let searchResultPromise: Promise<ESResponse[]>;
@@ -58,6 +59,8 @@
 		)
 	);
 </script>
+
+<OpenGraph />
 
 <div class="grid place-items-center p-2.5 text-center mx-auto my-0 gap-1 pt-20 sm:pt-6">
 	<div class="block mb-4">
