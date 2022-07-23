@@ -36,7 +36,7 @@
 		}
 
 		return {
-			props: { meta },
+			props: { meta, media },
 			stuff: {
 				meta,
 				audioSourcePromise
@@ -49,10 +49,14 @@
 	import { page } from '$app/stores';
 
 	export let meta: JSON_DATA;
+	export let media: Media;
 
 	const title = `${meta.reference}: ${meta.translation_name}`;
 	const imgSrc =
 		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649503686/bible-links/main_logo.png';
+
+	let audioSource = '';
+	$page.stuff.audioSourcePromise.then((s) => (audioSource = s));
 </script>
 
 <svelte:head>
@@ -69,6 +73,12 @@
 	<meta property="og:image:alt" content="${title}" />
 	<meta property="og:image:width" content="720" />
 	<meta property="og:image:height" content="540" />
+
+	{#if media === 'audio' && audioSource}
+		<meta property="og:audio" content={audioSource} />
+		<meta property="og:audio:secure_url" content={audioSource} />
+		<meta property="og:audio:type" content="audio/mpeg" />
+	{/if}
 
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={meta.text} />
