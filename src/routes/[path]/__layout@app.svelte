@@ -75,8 +75,8 @@
 		{#await $page.stuff.audioSourcePromise then audioSource}
 			<meta property="og:audio" content={audioSource} />
 			<meta property="og:audio:secure_url" content={audioSource} />
-			<meta property="og:audio:type" content="audio/mpeg" />
 		{/await}
+		<meta property="og:audio:type" content="audio/mpeg" />
 	{/if}
 
 	<meta name="twitter:title" content={title} />
