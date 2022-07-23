@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	export let title = 'Bible Links';
-	export let imgSrc =
+	let title = 'Bible Links';
+	let imgSrc =
 		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649503686/bible-links/main_logo.png';
-	export let description = 'Share beautiful Bible verses and chapters on Social Media with the goal of supporting communities to remain strong in Christ';
+	let description = 'Share beautiful Bible verses and chapters on Social Media with the goal of supporting communities to remain strong in Christ';
 </script>
 
 <svelte:head>
