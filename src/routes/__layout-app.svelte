@@ -10,6 +10,8 @@
 		'Share beautiful Bible verses and chapters on Social Media with the goal of supporting communities to remain strong in Christ';
 </script>
 
+<slot />
+
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={description} />
@@ -31,8 +33,6 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@ChukwumaNwaugha" />
 </svelte:head>
-
-<slot />
 
 {#if $page.url.pathname !== '/'}
 	<a class="block fixed top-0 left-0" href="/">
