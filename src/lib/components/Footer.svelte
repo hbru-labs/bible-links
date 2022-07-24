@@ -6,7 +6,7 @@
 
 <style>
 	.footer {
-		font-size: 10px;
+		font-size: 12px;
 		transform: translateX(-50%);
 	}
 
