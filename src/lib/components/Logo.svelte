@@ -14,7 +14,7 @@
 <div class="flex p-5 w-auto max-w-[420px] mx-auto my-0">
 	<img
 		width={imgSize[size]}
-		src="logo.png"
+		src="logo.webp"
 		alt="Bible Links"
 		class="rounded-lg object-cover my-0 mx-auto aspect-video"
 	/>

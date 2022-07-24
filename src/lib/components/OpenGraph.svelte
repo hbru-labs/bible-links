@@ -3,7 +3,7 @@
 
 	export let title = 'Bible Links';
 	export let imgSrc =
-		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649503686/bible-links/main_logo.png';
+		'https://res.cloudinary.com/cpnwaugha/image/upload/v1658688608/bible-links/main_logo_2.webp';
 	export let description =
 		'Share beautiful Bible verses and chapters on Social Media with the goal of supporting communities to remain strong in Christ';
 </script>

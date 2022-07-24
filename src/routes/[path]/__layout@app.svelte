@@ -54,7 +54,7 @@
 
 	const title = `${meta.reference}: ${meta.translation_name}`;
 	const imgSrc =
-		'https://res.cloudinary.com/cpnwaugha/image/upload/v1649503686/bible-links/main_logo.png';
+		'https://res.cloudinary.com/cpnwaugha/image/upload/v1658688608/bible-links/main_logo_2.webp';
 </script>
 
 <OpenGraph>
