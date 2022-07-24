@@ -14,7 +14,7 @@
 	<slot name="label">
 		<label for="select">Select:</label>
 	</slot>
-	<select name="select" id="select" on:change {value}>
+	<select name="select" on:change {value}>
 		{#each options as option (option.id)}
 			<option value={option.id}>{option.label}</option>
 		{:else}
