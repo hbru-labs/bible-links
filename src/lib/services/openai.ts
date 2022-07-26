@@ -41,6 +41,24 @@ export function getAPI(openai: OpenAIApi) {
 				});
 
 			return response.data.error ? '' : (response.data as CreateCompletionResponse).choices[0].text;
+		},
+		async textSummarization(text: string) {
+			const response = await openai
+				.createCompletion({
+					model: 'text-davinci-002',
+					prompt: `${text}.\n\nTl;dr`,
+					temperature: 0.5,
+					max_tokens: 60,
+					top_p: 1,
+					frequency_penalty: 0,
+					presence_penalty: 0
+				})
+				.catch((error) => {
+					logger.error(error);
+					return { data: error };
+				});
+
+			return response.data.error ? '' : (response.data as CreateCompletionResponse).choices[0].text;
 		}
 	});
 }
