@@ -3,7 +3,7 @@ import logger from '$lib/utils/logger';
 import type { RequestHandler } from '@sveltejs/kit';
 import { TextToSpeechLanguages } from '$lib/utils/constants';
 
-export const post: RequestHandler = async function ({ request }) {
+export const POST: RequestHandler = async function ({ request }) {
 	const { text, lang } = await request.json();
 
 	if (!text || !TextToSpeechLanguages[lang]) {

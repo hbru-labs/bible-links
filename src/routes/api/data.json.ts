@@ -15,7 +15,7 @@ async function getTranslation(text: string, lang: TargetLanguageCodeType) {
 		.catch(() => text);
 }
 
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
 	const req = await request.json();
 	const tr = req['translation'];
 	const lang = req['language'];

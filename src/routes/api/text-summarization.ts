@@ -8,7 +8,7 @@ const headers = {
 	'cache-control': 'public, max-age=3600'
 };
 
-export const post: RequestHandler = async function ({ request }) {
+export const POST: RequestHandler = async function ({ request }) {
 	const { text } = await request.json();
 	const textHash = crypto.createHash('md5').update(text).digest('hex');
 

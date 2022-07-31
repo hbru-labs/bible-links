@@ -3,7 +3,7 @@ import { getES } from '$lib/services/elasticsearch';
 import logger from '$lib/utils/logger';
 import got from 'got';
 
-export const post: RequestHandler = async function ({ url }) {
+export const POST: RequestHandler = async function ({ url }) {
 	const query = url.searchParams.get('q');
 	if (!query) {
 		return {
