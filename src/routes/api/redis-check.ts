@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler = async function ({ url }) {
+export const GET: RequestHandler = async function ({ url }) {
 	try {
 		return {
 			body: {

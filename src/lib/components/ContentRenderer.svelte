@@ -3,6 +3,7 @@
 	import OtherTranslations from './OtherTranslations.svelte';
 	import truncate from '$lib/utils/truncate';
 	import type { TargetLanguageCodeType } from '$lib/utils/types';
+	import sanitizePunctuations from '$lib/utils/sanitizePunctuations';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
@@ -28,7 +29,7 @@
 			<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
 				<slot name="content">
 					<div class="text-20 bible-text">
-						{$page.stuff.meta.text}
+						{sanitizePunctuations($page.stuff.meta.text)}
 					</div>
 				</slot>
 			</div>

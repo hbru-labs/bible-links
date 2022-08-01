@@ -4,12 +4,13 @@
   "scripts": {
     "tailwind:compile": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css",
     "tailwind:compile:watch": "pnpm tailwindcss -i ./src/app.css -o ./static/tailwind.css --watch",
-    "dev": "pnpm tailwind:compile:watch & vite dev",
+    "dev": "pnpm tailwind:compile:watch & vite dev --port 3000 --host 0.0.0.0",
     "build": "pnpm tailwind:compile && vite build",
     "package": "svelte-kit package",
     "preview": "vite preview",
     "prepare": "svelte-kit sync",
     "test": "playwright test",
+    "test:ava": "ava",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
@@ -17,12 +18,13 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.20.0",
-    "@sveltejs/adapter-node": "1.0.0-next.73",
-    "@sveltejs/adapter-vercel": "1.0.0-next.63",
-    "@sveltejs/kit": "1.0.0-next.372",
+    "@sveltejs/adapter-node": "1.0.0-next.85",
+    "@sveltejs/adapter-vercel": "1.0.0-next.66",
+    "@sveltejs/kit": "1.0.0-next.398",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "autoprefixer": "^10.4.7",
+    "ava": "^4.3.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
@@ -33,9 +35,10 @@
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.10.4",
     "tailwindcss": "^3.1.3",
+    "ts-node": "^10.9.1",
     "tslib": "^2.3.1",
     "typescript": "~4.6.2",
-    "vite": "2.9.14"
+    "vite": "3.0.4"
   },
   "type": "module",
   "dependencies": {
@@ -53,5 +56,17 @@
     "googleapis": "^105.0.0",
     "got": "^12.1.0",
     "openai": "^3.0.0"
+  },
+  "ava": {
+    "files": [
+      "tests/**/*.ava.ts"
+    ],
+    "extensions": {
+			"ts": "module"
+		},
+		"nodeArguments": [
+			"--loader=ts-node/esm",
+      "--experimental-specifier-resolution=node"
+		]
   }
 }
