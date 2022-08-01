@@ -8,6 +8,11 @@
 	export let currentLanguage: TargetLanguageCodeType;
 	export let hideHeader = false;
 	export let hideFooter = false;
+
+	function sanitizePunctuations(text: string) {
+		// add appropriate space between words having punctuations using regex
+		return text.replace(/([a-zA-Z_][\w])([\?\!\.\;\,])([\w])/g, '$1$2 $3');
+	}
 </script>
 
 <content-renderer>
@@ -28,7 +33,7 @@
 			<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
 				<slot name="content">
 					<div class="text-20 bible-text">
-						{$page.stuff.meta.text}
+						{sanitizePunctuations($page.stuff.meta.text)}
 					</div>
 				</slot>
 			</div>
