@@ -3,16 +3,12 @@
 	import OtherTranslations from './OtherTranslations.svelte';
 	import truncate from '$lib/utils/truncate';
 	import type { TargetLanguageCodeType } from '$lib/utils/types';
+	import sanitizePunctuations from '$lib/utils/sanitizePunctuations';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
 	export let hideHeader = false;
 	export let hideFooter = false;
-
-	function sanitizePunctuations(text: string) {
-		// add appropriate space between words having punctuations using regex
-		return text.replace(/([a-zA-Z_][\w])([\?\!\.\;\,])([\w])/g, '$1$2 $3');
-	}
 </script>
 
 <content-renderer>
