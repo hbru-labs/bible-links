@@ -1084,6 +1084,10 @@ video {
   text-transform: lowercase;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .leading-4 {
   line-height: 1rem;
 }
