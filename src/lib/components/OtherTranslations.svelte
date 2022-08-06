@@ -27,7 +27,7 @@
 			{#each translationsEntries as [tr, title] (tr)}
 				{@const href = constructHref(tr)}
 
-				<a {href} {title}>{tr};</a>
+				<a {href} {title} sveltekit:prefetch>{tr};</a>
 			{/each}
 		</div>
 	{/key}
