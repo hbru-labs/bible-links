@@ -36,7 +36,7 @@
 
 <ai-summarization>
 	<button
-		class="text-center w-6 h-6 ring-1 ring-zinc-300 hover:ring-purple-500 rounded-sm px-1 transition-all duration-200 ease-in-out"
+		class="flex justify-center items-center w-6 h-6 ring-1 ring-zinc-300 hover:ring-purple-500 rounded-sm px-1 transition-all duration-200 ease-in-out"
 		title={aiSummarization ? 'Clear' : 'AI summarization'}
 		on:click={summarizeText}
 	>
