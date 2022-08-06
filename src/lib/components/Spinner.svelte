@@ -1,5 +1,9 @@
+<script>
+	export let small = true;
+</script>
+
 <spinner>
-	<div class="loader" />
+	<div class="loader" class:small />
 </spinner>
 
 <style>
@@ -11,6 +15,13 @@
 		height: 24px;
 		-webkit-animation: spin 1s linear infinite; /* Safari */
 		animation: spin 1s linear infinite;
+	}
+
+	.loader.small {
+		border-width: 2px;
+		width: 16px;
+		height: 16px;
+		border-top-width: 2px;
 	}
 
 	/* Safari */

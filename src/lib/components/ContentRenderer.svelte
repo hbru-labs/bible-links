@@ -9,6 +9,7 @@
 	export let currentLanguage: TargetLanguageCodeType;
 	export let hideHeader = false;
 	export let hideFooter = false;
+	export let aiSummarization = '';
 </script>
 
 <content-renderer>
@@ -29,7 +30,11 @@
 			<div class="max-h-[420px] overflow-x-hidden overflow-y-auto">
 				<slot name="content">
 					<div class="text-20 bible-text" style="white-space: pre-line">
-						{sanitizeText($page.stuff.meta.text, $page.stuff.meta.translation_id)}
+						{#if aiSummarization}
+							<span class="text-16" title="AI summarization">⚡</span>{aiSummarization}
+						{:else}
+							{sanitizeText($page.stuff.meta.text, $page.stuff.meta.translation_id)}
+						{/if}
 					</div>
 				</slot>
 			</div>
