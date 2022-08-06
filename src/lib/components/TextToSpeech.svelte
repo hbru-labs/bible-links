@@ -25,6 +25,7 @@
 	export let source: string = '';
 	export let media: Media;
 	export let translation: string;
+	export let aiSummarization = '';
 
 	let loading = false;
 	let errorMessage = '';
@@ -81,7 +82,10 @@
 
 <text-to-speech>
 	{#key lang || translation}
-		<div class="flex flex-col items-center">
+		<div class="flex flex-col items-center relative">
+			{#if aiSummarization}
+				<span class="text-16 absolute left-0 top-0" title="AI summarization">⚡</span>
+			{/if}
 			{#if source}
 				<audio controls class="my-2" in:fade|local>
 					<source src={source} type="audio/mpeg" />

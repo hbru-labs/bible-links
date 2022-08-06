@@ -55,10 +55,11 @@
 					<div slot="content" class="block">
 						{#if isTranslationLang(currentLanguage)}
 							<TextToSpeech
-								text={$page.stuff.meta.text}
+								text={aiSummarization || $page.stuff.meta.text}
 								lang={currentLanguage}
 								{media}
 								translation={currentTranslation}
+								{aiSummarization}
 							/>
 						{:else}
 							<span
