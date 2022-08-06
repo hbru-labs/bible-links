@@ -29,6 +29,8 @@
 	export let media: Media;
 
 	let aiSummarization = '';
+
+	$: if (media === 'audio') aiSummarization = '';
 </script>
 
 <div class="block-container py-0">
