@@ -15,7 +15,14 @@ export function constructParagraphs(text: string) {
 	return uppercaseFirstChar(text.split('\n')).join('\n\n');
 }
 
+export function constructSentences(text: string) {
+	return text.replace(/\n/g, ' ').split('. ').join('.\n');
+}
+
 export default function sanitizeText(text: string, tr: string) {
+	const finalOps = (sanitized: string) =>
+		HAS_NEW_LINE.includes(tr) ? sanitized : constructSentences(sanitized);
+
 	const sanitized = sanitizePunctuations(text);
-	return HAS_NEW_LINE.includes(tr) ? constructParagraphs(sanitized) : sanitized;
+	return constructParagraphs(finalOps(sanitized));
 }
