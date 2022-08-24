@@ -1,6 +1,7 @@
-import { getSecret } from '$lib/utils/secret';
+import { getSecret } from '../utils/secret';
 import { Configuration, OpenAIApi, type CreateCompletionResponse } from 'openai';
 import logger from '../utils/logger';
+import cosineSimilarity from '../utils/cosineSimilarity';
 
 let client: OpenAIApi | null = null;
 
@@ -59,6 +60,28 @@ export function getAPI(openai: OpenAIApi) {
 				});
 
 			return response.data.error ? '' : (response.data as CreateCompletionResponse).choices[0].text;
+		},
+		async textSearchEmbedding(text: string, query: string) {
+			const searchPromiseDoc = openai.createEmbedding({
+				input: text,
+				model: 'text-similarity-babbage-001'
+			});
+
+			const searchPromiseQuery = openai.createEmbedding({
+				input: query,
+				model: 'text-similarity-babbage-001'
+			});
+
+			const [{ data: _doc }, { data: _query }] = await Promise.all([
+				searchPromiseDoc,
+				searchPromiseQuery
+			]);
+
+			const docEmbedding = _doc.data[0].embedding;
+			const queryEmbedding = _query.data[0].embedding;
+			const SCORE_MULTIPLIER = 100.0;
+
+			return cosineSimilarity(docEmbedding, queryEmbedding) * SCORE_MULTIPLIER;
 		}
 	});
 }
