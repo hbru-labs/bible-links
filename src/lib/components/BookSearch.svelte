@@ -1,35 +1,12 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { createEventDispatcher } from 'svelte';
-	import IconButton from './IconButton.svelte';
-	import Modal from './Modal.svelte';
-	import SearchBar from './SearchBar.svelte';
+	import BookSearchModal from './BookSearchModal.svelte';
 
-	const dispatch = createEventDispatcher<{ search: void }>();
-
-	let modalEl: Modal;
-	let searchTerm = '';
-	let navigating = false;
-
-	function openDialog() {
-		modalEl.toggleModal();
-	}
-
-	async function handleSearch() {
-		dispatch('search');
-
-		navigating = true;
-		await goto(`/${searchTerm.toLowerCase()}`);
-
-		navigating = false;
-		modalEl.toggleModal();
-		searchTerm = '';
-	}
+	let modalEl: BookSearchModal;
 </script>
 
 <book-search>
 	<div
-		on:click={openDialog}
+		on:click={() => modalEl.openModal()}
 		title="tap to open search dialog"
 		class="flex justify-center items-center w-6 h-6 ring-1 ring-zinc-300 hover:ring-purple-500 rounded-sm px-1 transition-all duration-200 ease-in-out cursor-pointer"
 	>
@@ -46,48 +23,6 @@
 			>
 		</div>
 
-		<Modal bind:this={modalEl} title="Search by Book+Chapter:Verse">
-			<div slot="content">
-				<div class="flex justify-center items-center">
-					<SearchBar
-						showIcon={false}
-						bind:searchTerm
-						placeholder="john3:16"
-						disabled={navigating}
-					/>
-					<div class="w-auto ml-1">
-						<IconButton
-							on:click={handleSearch}
-							disabled={!searchTerm || navigating}
-							loading={navigating}
-						/>
-					</div>
-				</div>
-
-				<div class="mt-10">
-					<h3 class="font-semibold underline">examples:</h3>
-					<ul>
-						<li>single verse: <em>john3:16</em></li>
-						<li>abbreviated book name: <em>jn3:16</em></li>
-						<li>verse range: <em>romans12:1-2</em></li>
-						<li>multiple ranges: <em>romans12:1-2,5-7,9,13:1-9&10</em></li>
-						<li>different translation: <em>john3:16?translation=kjv</em></li>
-					</ul>
-				</div>
-			</div>
-		</Modal>
+		<BookSearchModal bind:this={modalEl} />
 	</div>
 </book-search>
-
-<style>
-	ul {
-		display: block;
-		list-style-type: disc;
-		margin-bottom: 0.5rem;
-		padding-left: 20px;
-	}
-	ul li {
-		margin-bottom: 0.1rem;
-		font-size: 0.8rem;
-	}
-</style>
