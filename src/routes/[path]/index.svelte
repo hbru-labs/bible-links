@@ -40,7 +40,7 @@
 	>
 		<div class="flex justify-end items-center space-x-1">
 			<LanguageMedia {media} {currentLanguage} />
-			<BookSearch />
+			<BookSearch on:search={() => (aiSummarization = '')} />
 			<AISummarization bind:aiSummarization />
 		</div>
 		<div class="flex flex-col space-y-10 w-full">

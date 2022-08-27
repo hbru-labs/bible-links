@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-
+	import { createEventDispatcher } from 'svelte';
 	import IconButton from './IconButton.svelte';
 	import Modal from './Modal.svelte';
 	import SearchBar from './SearchBar.svelte';
+
+	const dispatch = createEventDispatcher<{ search: void }>();
 
 	let modalEl: Modal;
 	let searchTerm = '';
@@ -14,6 +16,8 @@
 	}
 
 	async function handleSearch() {
+		dispatch('search');
+
 		navigating = true;
 		await goto(`/${searchTerm.toLowerCase()}`);
 
