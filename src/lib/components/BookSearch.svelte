@@ -1,15 +1,26 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+
 	import IconButton from './IconButton.svelte';
 	import Modal from './Modal.svelte';
 	import SearchBar from './SearchBar.svelte';
 
 	let modalEl: Modal;
 	let searchTerm = '';
+	let navigating = false;
+
 	function openDialog() {
 		modalEl.toggleModal();
 	}
 
-	function handleSearch() {}
+	async function handleSearch() {
+		navigating = true;
+		await goto(`/${searchTerm.toLowerCase()}`);
+
+		navigating = false;
+		modalEl.toggleModal();
+		searchTerm = '';
+	}
 </script>
 
 <book-search>
@@ -34,9 +45,18 @@
 		<Modal bind:this={modalEl} title="Search by Book+Chapter:Verse">
 			<div slot="content">
 				<div class="flex justify-center items-center">
-					<SearchBar showIcon={false} bind:searchTerm placeholder="john3:16" />
+					<SearchBar
+						showIcon={false}
+						bind:searchTerm
+						placeholder="john3:16"
+						disabled={navigating}
+					/>
 					<div class="w-auto ml-1">
-						<IconButton on:click={handleSearch} disabled={!searchTerm} />
+						<IconButton
+							on:click={handleSearch}
+							disabled={!searchTerm || navigating}
+							loading={navigating}
+						/>
 					</div>
 				</div>
 
