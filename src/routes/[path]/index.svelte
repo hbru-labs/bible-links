@@ -23,6 +23,7 @@
 	import ContentRenderer from '$lib/components/ContentRenderer.svelte';
 	import LanguageMedia from '$lib/components/LanguageMedia.svelte';
 	import AISummarization from '$lib/components/AISummarization.svelte';
+	import BookSearch from '$lib/components/BookSearch.svelte';
 
 	export let currentTranslation: string;
 	export let currentLanguage: TargetLanguageCodeType;
@@ -37,8 +38,9 @@
 	<div
 		class="wrapper-container flex flex-col space-y-2 mx-auto max-w-[422px] w-auto px-1 max-h-[720px] pb-10 pt-8 overflow-x-hidden overflow-y-scroll"
 	>
-		<div class="flex justify-end items-center">
+		<div class="flex justify-end items-center space-x-1">
 			<LanguageMedia {media} {currentLanguage} />
+			<BookSearch />
 			<AISummarization bind:aiSummarization />
 		</div>
 		<div class="flex flex-col space-y-10 w-full">
