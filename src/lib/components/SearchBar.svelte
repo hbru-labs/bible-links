@@ -6,6 +6,7 @@
 	export let showIcon = true;
 	export let placeholder = 'Start typing to search...';
 	export let disabled = false;
+	export let onclickPress: (() => any) | undefined = undefined;
 
 	const dispatch = createEventDispatcher<{ keypress: void }>();
 
@@ -26,7 +27,11 @@
 		class="flex h-10 w-[280px] sm:w-[320px] items-center space-x-2 rounded-md border-2 border-zinc-500 py-2 px-2.5 focus-within:border-indigo-600"
 	>
 		{#if showIcon}
-			<div class="my-2 flex h-7 w-7 items-center justify-center">
+			<div
+				class="my-2 flex h-7 w-7 items-center justify-center"
+				class:cursor-pointer={onclickPress}
+				on:click={onclickPress}
+			>
 				<svg
 					fill="#000000"
 					xmlns="http://www.w3.org/2000/svg"

@@ -6,12 +6,12 @@
 	import SearchBar from './SearchBar.svelte';
 
 	export function openModal() {
-		modalEl.toggleModal();
+		modalEl?.toggleModal();
 	}
 
 	const dispatch = createEventDispatcher<{ search: void }>();
 
-	let modalEl: Modal;
+	let modalEl: Modal | undefined;
 	let searchTerm = '';
 	let navigating = false;
 
@@ -22,7 +22,7 @@
 		await goto(`/${searchTerm.toLowerCase()}`);
 
 		navigating = false;
-		modalEl.toggleModal();
+		modalEl?.toggleModal();
 		searchTerm = '';
 	}
 </script>
