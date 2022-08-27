@@ -10,5 +10,5 @@
       }
     ],
     "extends": ["group:monorepos"],
-    "schedule": ["every weekend", "every monday at 8am"]
+    "schedule": ["every weekend"]
   }
