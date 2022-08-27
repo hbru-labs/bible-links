@@ -36,7 +36,7 @@
 					<h2 class="font-bold text-base sm:text-lg">{title}</h2>
 					<button
 						on:click={() => (show = false)}
-						class="close absolute right-3 text-[24px] font-bold text-black focus:cursor-pointer no-underline"
+						class="close absolute right-3 text-[20px] hover:scale-125 transition-transform duration-200 ease-linear font-bold text-black focus:cursor-pointer no-underline"
 					>
 						&times;
 					</button>
@@ -70,8 +70,8 @@
 	/* Add Animation */
 	@-webkit-keyframes animatetop {
 		from {
-			top: -300px;
-			opacity: 0;
+			top: -200px;
+			opacity: 0.5;
 		}
 		to {
 			top: 0;
