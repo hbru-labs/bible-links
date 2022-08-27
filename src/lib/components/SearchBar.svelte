@@ -4,6 +4,7 @@
 	export let searchTerm = '';
 	export let autofocus = true;
 	export let showIcon = true;
+	export let placeholder = 'Start typing to search...';
 
 	const dispatch = createEventDispatcher<{ keypress: void }>();
 
@@ -40,7 +41,7 @@
 		<input
 			type="search"
 			class="text-md block h-6 w-full border-none bg-transparent pl-0 outline-none focus:ring-0"
-			placeholder="Start typing to search..."
+			{placeholder}
 			on:keypress={handleKeyPress}
 			bind:value={searchTerm}
 			bind:this={inputEl}

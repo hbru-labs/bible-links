@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let show: boolean = false;
+	export let title: string;
 	export function toggleModal() {
 		show = !show;
 	}
@@ -32,7 +33,7 @@
 		>
 			<div class="py-0.5 h-10 px-4 text-black flex items-center relative">
 				<slot name="header">
-					<h2 class="font-bold">Modal Header</h2>
+					<h2 class="font-bold">{title}</h2>
 					<button
 						on:click={() => (show = false)}
 						class="close absolute right-3 text-[24px] font-bold text-black focus:cursor-pointer no-underline"
@@ -42,9 +43,10 @@
 				</slot>
 			</div>
 			<hr class="w-full" />
-			<div class="py-2 px-4 h-auto flex justify-center items-center flex-col">
-				<p>Some text in the Modal Body</p>
-				<p>Some other text...</p>
+			<div class="py-2 px-4 h-auto relative w-full">
+				<slot name="content">
+					<p class="flex justify-center items-center flex-col">Modal content</p>
+				</slot>
 			</div>
 			{#if $$slots.footer}
 				<hr class="w-full" />
