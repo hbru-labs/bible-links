@@ -1215,6 +1215,20 @@ video {
   font-size: 24px;
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.text-\[12px\] {
+  font-size: 12px;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .font-semibold {
   font-weight: 600;
 }
@@ -1438,5 +1452,26 @@ video {
 
   .sm\:pt-6 {
     padding-top: 1.5rem;
+  }
+
+  .sm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .sm\:text-\[18px\] {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:w-2\/5 {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:w-2\/5 {
+    width: 40%;
   }
 }

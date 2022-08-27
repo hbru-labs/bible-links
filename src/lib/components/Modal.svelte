@@ -29,11 +29,11 @@
 	>
 		<div
 			on:click|stopPropagation
-			class="modal-content relative m-auto p-0 border-1 border-solid bg-white border-zinc-400 w-2/3 sm:w-2/5 cursor-default"
+			class="modal-content relative m-auto p-0 border-1 border-solid bg-white border-zinc-400 w-full sm:w-3/5 lg:w-2/5 cursor-default"
 		>
 			<div class="py-0.5 h-10 px-4 text-black flex items-center relative">
 				<slot name="header">
-					<h2 class="font-bold">{title}</h2>
+					<h2 class="font-bold text-base sm:text-lg">{title}</h2>
 					<button
 						on:click={() => (show = false)}
 						class="close absolute right-3 text-[24px] font-bold text-black focus:cursor-pointer no-underline"
