@@ -32,6 +32,8 @@
 	let aiSummarization = '';
 
 	$: if (media === 'audio') aiSummarization = '';
+
+	$: if (currentTranslation || currentLanguage) aiSummarization = '';
 </script>
 
 <div class="block-container py-0">
