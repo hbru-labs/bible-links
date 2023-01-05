@@ -2,6 +2,7 @@ import { getSecret } from '../utils/secret';
 import { Configuration, OpenAIApi, type CreateCompletionResponse } from 'openai';
 import logger from '../utils/logger';
 import cosineSimilarity from '../utils/cosineSimilarity';
+import { captureException } from '@sentry/node';
 
 let client: OpenAIApi | null = null;
 
@@ -55,11 +56,11 @@ export function getAPI(openai: OpenAIApi) {
 					presence_penalty: 0
 				})
 				.catch((error) => {
-					logger.error(error);
-					return { data: error };
+					captureException(error);
+					throw error;
 				});
 
-			return response.data.error ? '' : (response.data as CreateCompletionResponse).choices[0].text;
+			return (response.data as CreateCompletionResponse).choices[0].text;
 		},
 		async textSearchEmbedding(text: string, query: string) {
 			const searchPromiseDoc = openai.createEmbedding({
