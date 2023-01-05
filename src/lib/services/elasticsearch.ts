@@ -34,7 +34,7 @@ function getAPI(client: Client) {
 						query,
 						fields: ['text', 'book*', 'translation'],
 						default_operator: 'AND'
-					}
+					},
 				}
 			});
 

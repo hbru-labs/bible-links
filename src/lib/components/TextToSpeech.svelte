@@ -43,8 +43,8 @@
 
 	$: if (media === 'audio') {
 		$page.stuff.audioSourcePromise
-			.then((r) => (source = r))
-			.catch((err) => {
+			.then((r: string) => (source = r))
+			.catch((err: any) => {
 				source = '';
 				resolveError(err);
 			})
