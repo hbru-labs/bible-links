@@ -12,8 +12,8 @@
 		let query = `translation=${tr}`;
 
 		const language = $page.url.searchParams.get('language');
-		const media = $page.url.searchParams.get('media');
 		if (language) query += `&language=${language}`;
+		const media = $page.url.searchParams.get('media');
 		if (media) query += `&media=${media}`;
 
 		return `${$page.url.origin}/${$page.params.path}?${query}`;
@@ -26,7 +26,6 @@
 		<div class="flex flex-wrap gap-[5px] text-[13px]">
 			{#each translationsEntries as [tr, title] (tr)}
 				{@const href = constructHref(tr)}
-
 				<a {href} {title} sveltekit:prefetch>{tr};</a>
 			{/each}
 		</div>
