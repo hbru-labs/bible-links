@@ -24,13 +24,18 @@ export default async function getOpenAI() {
 	};
 }
 
+const systemMessages = {
+	bibleScholar:
+		'You are a Bible Scholar, Doctor of the Church, Dominican Order Priest with PhDs in Theology and Philosophy. You can explain Bible concepts in great details with simplicity and finesse, to the understanding of any audience.'
+};
+
 export function getAPI(openai: OpenAIApi) {
 	return logger.logMethodCalls({
 		async textCompletion(text: string) {
 			const response = await openai
 				.createCompletion({
 					model: 'text-davinci-002',
-					prompt: `Correct this to standard English: ${text}`,
+					prompt: `Correct the following to standard English: ${text}`,
 					temperature: 0,
 					max_tokens: 60,
 					top_p: 1,
@@ -44,16 +49,17 @@ export function getAPI(openai: OpenAIApi) {
 
 			return response.data.error ? '' : (response.data as CreateCompletionResponse).choices[0].text;
 		},
-		async textSummarization(text: string) {
+		async textSummarizationDeprecated(text: string) {
+			const prompt = `I want you to act as a Bible Scholar, Doctor of the Church, Dominican Order Priest with PhDs in Theology and Philosophy. You will explain Bible concepts in Great details with simplicity and finesse to the understanding of any audience. You will ensure to preserve the truth in the Gospel and teach hidden meanings not readily apparent to everyday users. When prompted you'll provide a summary with explanation in great detail. Now, summarize the following bible text: \n\n${text}`;
 			const response = await openai
 				.createCompletion({
-					model: 'text-davinci-002',
-					prompt: `${text}.\n\nTl;dr`,
+					model: 'text-davinci-003',
+					prompt,
 					temperature: 0.5,
-					max_tokens: 60,
-					top_p: 1,
-					frequency_penalty: 0,
-					presence_penalty: 0
+					max_tokens: 1024,
+					top_p: 1.0,
+					frequency_penalty: 0.0,
+					presence_penalty: 1
 				})
 				.catch((error) => {
 					captureException(error);
@@ -61,6 +67,24 @@ export function getAPI(openai: OpenAIApi) {
 				});
 
 			return (response.data as CreateCompletionResponse).choices[0].text;
+		},
+		async textSummarization(text: string) {
+			const prompt = `I want you to act as a Bible Scholar, Doctor of the Church, Dominican Order Priest with PhDs in Theology and Philosophy. You can explain Bible concepts in Great details with simplicity and finesse to the understanding of any audience. You will ensure to preserve the truth in the Gospel and teach hidden meanings not readily apparent to everyday users. When prompted you'll provide a summary with explanation in great detail. Now, summarize the following bible text keeping it brief and less than 144 words: \n\n${text}`;
+			const { data } = await openai.createChatCompletion(
+				{
+					model: 'gpt-3.5-turbo',
+					messages: [
+						{ role: 'system', content: systemMessages.bibleScholar },
+						{ role: 'user', content: prompt }
+					],
+					temperature: 0.5,
+					top_p: 1.0,
+					frequency_penalty: 0.0,
+					presence_penalty: 1
+				},
+				{ timeout: 30000, signal: undefined }
+			);
+			return data.choices[0].message?.content || '';
 		},
 		async textSearchEmbedding(text: string, query: string) {
 			const searchPromiseDoc = openai.createEmbedding({
