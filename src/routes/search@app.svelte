@@ -4,6 +4,7 @@
 	export const load: Load = async ({ url, fetch }) => {
 		const searchTerm = url.searchParams.get('q');
 		let searchResultPromise: Promise<ESResponse[]> = Promise.resolve([]);
+		let aiResultPromise: Promise<string> = Promise.resolve('');
 
 		if (searchTerm) {
 			searchResultPromise = fetch(`/api/search?q=${searchTerm}`, {
@@ -11,12 +12,22 @@
 			})
 				.then((r) => r.json())
 				.then((r) => JSON.parse(r.data));
+
+			aiResultPromise = fetch(`/api/ask-the-bible`, {
+				method: 'POST',
+				body: JSON.stringify({
+					query: searchTerm
+				})
+			})
+				.then((r) => r.json())
+				.then((r) => r.data);
 		}
 
 		return {
 			props: {
 				searchTerm,
-				searchResultPromise
+				searchResultPromise,
+				aiResultPromise
 			}
 		};
 	};
@@ -31,12 +42,16 @@
 	import Spinner from '$lib/components/Spinner.svelte';
 	import { page } from '$app/stores';
 	import OpenGraph from '$lib/components/OpenGraph.svelte';
+	import { fade } from 'svelte/transition';
 
 	export let searchTerm = '';
 	export let searchResultPromise: Promise<ESResponse[]>;
+	export let aiResultPromise: Promise<string>;
 
 	let loading = false;
 	let searchResult: ESResponse[] = [];
+	let aiResultLoading = false;
+	let aiResult = '';
 
 	function navigateToSearch() {
 		const query = $page.url.searchParams.get('q');
@@ -58,6 +73,25 @@
 			{} as Record<string, ESResponse>
 		)
 	);
+
+	$: if (aiResultPromise) {
+		aiResultLoading = true;
+		aiResultPromise.then((r) => (aiResult = r)).finally(() => (aiResultLoading = false));
+	}
+
+	function sanitizeAIResult(text: string) {
+		// const sanitizedText = text.split('\n\nReferences');
+		// let references = sanitizedText[1]?.replace(/\n/gm, ', ') || '';
+		// if (references) {
+		// 	references = references
+		// 		.replace(/[\:\,]+/, '')
+		// 		.split(', ')
+		// 		.map((r) => `<span class="underline text-blue-600">${r.trim()}</span>`)
+		// 		.join(' ');
+		// }
+		const explanation = text; // .replace(/\n/gm, ' ');
+		return explanation;
+	}
 </script>
 
 <OpenGraph />
@@ -72,8 +106,31 @@
 		</div>
 	</div>
 
-	<div class="max-w-[420px] h-[480px] w-full overflow-x-hidden overflow-y-auto">
-		<div class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center justify-center">
+	<div class="max-w-[420px] h-[520px] w-full overflow-x-hidden overflow-y-auto">
+		<div
+			id="ai_result"
+			class="relative w-full flex justify-center items-center min-h-52 rounded-md border-2 border-zinc-400 border-dashed"
+			class:h-52={aiResultLoading}
+		>
+			{#if aiResultLoading}
+				<Spinner />
+			{:else if aiResult}
+				<div
+					in:fade|local
+					class="h-full w-full text-zinc-900 antialiased text-left text-md p-2 pb-4"
+				>
+					<span class="inline-block">
+						{@html sanitizeAIResult(aiResult)}
+					</span>
+				</div>
+				<div class="absolute right-1 bottom-1 text-[10px] text-indigo-500">⚡ AI generated</div>
+			{/if}
+		</div>
+		<div
+			class="mt-4 mb-3 w-full flex px-2 flex-wrap space-y-2 text-center justify-center pb-2"
+			class:hidden={!noDuplicateSearchResult.length || aiResultLoading}
+		>
+			<div class="w-full text-left text-md underline font-medium">Extra contexts:</div>
 			{#each noDuplicateSearchResult as { _source, _id } (_id)}
 				{@const translation = 'kjv'}
 				<!-- _source.translation -->
@@ -83,14 +140,6 @@
 					{translation}
 					query={searchTerm}
 				/>
-			{:else}
-				{#if loading}
-					<Spinner />
-				{:else}
-					<div class="text-gray-600">
-						No results found for "{searchTerm}"
-					</div>
-				{/if}
 			{/each}
 		</div>
 	</div>
