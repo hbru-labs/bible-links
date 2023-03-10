@@ -55,7 +55,7 @@
     "dotenv": "^16.0.1",
     "googleapis": "^110.0.0",
     "got": "^12.1.0",
-    "openai": "^3.1.0"
+    "openai": "^3.2.1"
   },
   "ava": {
     "files": [

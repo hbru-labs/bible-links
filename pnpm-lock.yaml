@@ -25,7 +25,7 @@ specifiers:
   eslint-plugin-svelte3: ^3.4.1
   googleapis: ^110.0.0
   got: ^12.1.0
-  openai: ^3.1.0
+  openai: ^3.2.1
   postcss: ^8.4.14
   prettier: ^2.7.1
   prettier-plugin-tailwindcss: ^0.1.11
@@ -52,7 +52,7 @@ dependencies:
   dotenv: 16.0.1
   googleapis: 110.0.0
   got: 12.1.0
-  openai: 3.1.0
+  openai: 3.2.1
 
 devDependencies:
   '@playwright/test': 1.20.2
@@ -3863,8 +3863,8 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openai/3.1.0:
-    resolution: {integrity: sha512-v5kKFH5o+8ld+t0arudj833Mgm3GcgBnbyN9946bj6u7bvel4Yg6YFz2A4HLIYDzmMjIo0s6vSG9x73kOwvdCg==}
+  /openai/3.2.1:
+    resolution: {integrity: sha512-762C9BNlJPbjjlWZi4WYK9iM2tAVAv0uUp1UmI34vb0CN5T2mjB/qM6RYBmNKMh/dN9fC+bxqPwWJZUTWW052A==}
     dependencies:
       axios: 0.26.1
       form-data: 4.0.0
