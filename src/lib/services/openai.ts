@@ -86,6 +86,38 @@ export function getAPI(openai: OpenAIApi) {
 			);
 			return data.choices[0].message?.content || '';
 		},
+		async askBibleAI(query: string) {
+			const prompt = `
+			I want you to act as a Search assistant with great knowledge of the Bible and the English language. 
+			You can explain the Bible concepts in great details with simplicity and finesse. 
+			You will ensure to preserve the truth in the Gospel and teach hidden meanings not readily apparent to everyday users. 
+			Your goal is to expand on the user's query or prompt and provide a relevant response. 
+			You will use your deep knowledge of word constructs in English to cater for poorly constructed query/prompt. 
+			You will also provide Bible references at the end to delight the user and encouraging further learning. 
+			The references should come in a list after your explanation. Each List item should be a link with the format <a href="https://bible-links.vercel.app/{book}{chapter}:{verseBegin}-{verseEnd}">{reference}</a>.
+			Now, provide an explaination to the following query about the bible: keep it brief and less than 75 words: \n\n${query}`;
+			const response = await openai
+				.createChatCompletion(
+					{
+						model: 'gpt-3.5-turbo',
+						messages: [
+							{ role: 'system', content: systemMessages.bibleScholar },
+							{ role: 'user', content: prompt }
+						],
+						temperature: 0.5,
+						top_p: 1.0,
+						frequency_penalty: 0.0,
+						presence_penalty: 1
+					},
+					{ timeout: 30000, signal: undefined }
+				)
+				.then(({ data }) => data.choices[0].message?.content || '')
+				.catch((error) => {
+					logger.error(error);
+					return '';
+				});
+			return response;
+		},
 		async textSearchEmbedding(text: string, query: string) {
 			const searchPromiseDoc = openai.createEmbedding({
 				input: text,
